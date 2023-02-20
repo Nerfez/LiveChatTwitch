@@ -1,5 +1,8 @@
+Le but de ce projet est de reproduire le LiveChat qu'utilisent la CACABOX (streamers HugoDélire,Grimkujow,Potatoz,Terracid,etc..).
+Lorsque l'on envoi une image/gif dans un channel discord, elle s'affiche sur leur live. A l'avenir je rajouterai l'envoi de vidéo et mettrai un css propre.
+
 Tout d'abord ce projet ne fonctionnera pas car j'ai effacé mes identifiants et ID vers ma base de donnée / discord pour des raisons évidentes.
-Veuillez donc remplacer par votre propre identifiants.
+Veuillez donc remplacer par vos propres identifiants.
 
 Je vous renvoie à cette vidéo qui explique parfaitement la création d'un projet de ce type : 
 https://www.youtube.com/watch?v=IErYPx-meD4&
