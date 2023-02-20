@@ -21,12 +21,11 @@
 	 ajax.onload = function(){
 		console.log("recu : " + this.responseText + " et url : " + urlImage);
 		 if(this.responseText == urlImage){
-		 
+		 document.getElementById("message").src="";
 		 } else {
-				 document.getElementById("video").src=""
+			 console.log("on affiche l'image");
 			 urlImage = this.responseText;
-        setTimeout(function () {document.getElementById("message").src=""+urlImage;
-			 }, 5000);
+        img.src=""+urlImage;
 		 }
 	 }
  }
@@ -34,9 +33,8 @@
 	function ChangeImage() {
 		   
 		const interval = setInterval(function() {
-			Database();
-   document.getElementById("message").src="";
- }, 1000);
+			Database();   
+ }, 10000);
 	}
 	</script>
 	</body>
