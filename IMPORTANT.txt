@@ -1,0 +1,8 @@
+Tout d'abord ce projet ne fonctionnera pas car j'ai effacé mes identifiants et ID vers ma base de donnée / discord pour des raisons évidentes.
+Veuillez donc remplacer par votre propre identifiants.
+
+Je vous renvoie à cette vidéo qui explique parfaitement la création d'un projet de ce type : 
+https://www.youtube.com/watch?v=IErYPx-meD4&
+
+En créant un projet de ce type, assurez vous d'avoir node js.
+Ensuite utilisez la commande "npm i discord.js" dans le terminal puis dans notre cas "npm install mysql" pour discuter avec la base de donnée
