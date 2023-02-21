@@ -8,4 +8,3 @@ Je vous renvoie à cette vidéo qui explique parfaitement la création d'un bot 
 https://www.youtube.com/watch?v=IErYPx-meD4&
 
 En créant un projet de ce type, assurez vous d'avoir node js.
-Ensuite utilisez la commande "npm i discord.js" dans le terminal puis dans notre cas "npm install mysql" pour discuter avec la base de donnée.
