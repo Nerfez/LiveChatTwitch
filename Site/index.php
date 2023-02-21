@@ -9,7 +9,8 @@
 	<img id="message width="1920" height="1080""
      src="urlduneimage">
 	<script>
-	var urlImage = "MettezLeMemeUrlQueVotreImageAffichee";
+	const img = document.getElementById("message");
+	var urlRecu = "vide.png";
 	 function Database(){
 	 var ajax = new XMLHttpRequest();
 	 var method = "GET";
@@ -19,13 +20,14 @@
 	 ajax.open(method, url, asynchronous);
 	 ajax.send();
 	 ajax.onload = function(){
-		console.log("recu : " + this.responseText + " et url : " + urlImage);
-		 if(this.responseText == urlImage){
-		 document.getElementById("message").src="";
-		 } else {
+		console.log("recu : " + this.responseText + " et url : " + urlRecu);
+		 if(this.responseText == urlRecu){
+		 img.src="vide.png"; //on affiche une image 1920 x 1080 png
+		 } 
+		 else {
 			 console.log("on affiche l'image");
-			 urlImage = this.responseText;
-        img.src=""+urlImage;
+			 urlRecu = this.responseText;
+			 img.src=""+urlRecu;
 		 }
 	 }
  }
@@ -34,7 +36,7 @@
 		   
 		const interval = setInterval(function() {
 			Database();   
- }, 10000);
+ }, 4000); //requête toutes les 4 secondes, c'est aussi la durée d'apparition de l'image
 	}
 	</script>
 	</body>
