@@ -23,8 +23,8 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", message => {
-    //on regarde uniquement un channel spécifique
-    if(message.channel.id === "CopiezLidentifiantDeVotreChannel"){
+    //on regarde uniquement un channel spécifique et execute la requete uniquement si le message n'a pas de message
+    if(message.channel.id === "Copiez-Lidentifiant-De-Votre-Channel" && message.content == ""){
     let image = message.attachments.first().url;
     console.log("nom image : " + image);
     con.connect(err => {
@@ -34,10 +34,10 @@ client.on("messageCreate", message => {
     // No erorr
     console.log(`Connexion à la BDD!`);
 });
-//UPDATE de notre BDD
+//UPDATE de notre BDD, on envoit l'url 
 con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
     console.log("message envoyé");
 }
 });
 
-client.login("VotreTokenDuBot");
+client.login("Votre-Token-Du-Bot");
