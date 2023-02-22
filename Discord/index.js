@@ -36,8 +36,23 @@ client.on("messageCreate", message => {
 });
 //UPDATE de notre BDD, on envoit l'url 
 con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
-    console.log("message envoyé");
+    console.log("image envoyée");
 }
+if(message.channel.id === "Copiez-Lidentifiant-De-Votre-Channel" && message.content == ""){
+        let video = message.attachments.first().url;
+    console.log("nom video : " + video);
+    con.connect(err => {
+    // return error
+    if (err) return console.log(err);
+
+    // No erorr
+    console.log(`Connexion à la BDD!`);
+});
+//UPDATE de notre BDD
+con.query(`UPDATE Video SET VideoURL = '${video}' WHERE 1`);
+    console.log("video envoyée");
+}
+
 });
 
 client.login("Votre-Token-Du-Bot");
