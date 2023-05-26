@@ -1,6 +1,26 @@
-video {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  margin-top: 250px;
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+
+video#video {
+  min-width: 100%;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
+
+h1 {
+  color: whitesmoke;
+  font-size: 3rem;
+  width: 1500px;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+
+html {
+  font-family: "Quicksand", "sans-serif";
 }
