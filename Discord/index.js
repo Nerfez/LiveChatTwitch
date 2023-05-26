@@ -23,35 +23,58 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", message => {
-    //on regarde uniquement un channel spécifique et execute la requete uniquement si le message n'a pas de message
-    if(message.channel.id === "Copiez-Lidentifiant-De-Votre-Channel" && message.content == ""){
-    let image = message.attachments.first().url;
-    console.log("nom image : " + image);
-    con.connect(err => {
-    // return error
-    if (err) return console.log(err);
+    //on regarde uniquement un channel spécifique
+    if (message.channel.id === "IdDeVotreChannelDiscord" && message.content[0] === prefix) {
+        let splitMessage = message.content.split(" ");
+        let image = message.attachments.first().url;
+        let time = splitMessage[1] * 1000;
+        let texte = message.content.substring(splitMessage[0].length + splitMessage[1].length + 2, message.content.length);
+        console.log("nom image : " + image);
+        console.log("time : " + time);
+        console.log("texte : " + texte);
+        con.connect(err => {
+            // return error
+            if (err) return console.log(err);
 
-    // No erorr
-    console.log(`Connexion à la BDD!`);
-});
-//UPDATE de notre BDD, on envoit l'url 
-con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
-    console.log("image envoyée");
-}
-if(message.channel.id === "Copiez-Lidentifiant-De-Votre-Channel" && message.content == ""){
+            // No erorr
+            console.log(`Connexion à la BDD!`);
+        });
+        //UPDATE de notre BDD
+        con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
+        console.log("image envoyée");
+
+        con.query(`UPDATE Image SET ImageTexte = '${texte}' WHERE 1`);
+        console.log("texte envoyé");
+
+        con.query(`UPDATE Image SET ImageTime = '${time}' WHERE 1`);
+        console.log("time envoyé");
+    }
+
+    if (message.channel.id === "IdDeVotreChannelDiscord" && message.content[0] === prefix) {
+        let splitMessage = message.content.split(" ");
         let video = message.attachments.first().url;
-    console.log("nom video : " + video);
-    con.connect(err => {
-    // return error
-    if (err) return console.log(err);
+        let time = splitMessage[1] * 1000;
+        let texte = message.content.substring(splitMessage[0].length + splitMessage[1].length + 2, message.content.length);
+        console.log("url video : " + video);
+        console.log("time : " + time);
+        console.log("texte : " + texte);
+        con.connect(err => {
+            // return error
+            if (err) return console.log(err);
 
-    // No erorr
-    console.log(`Connexion à la BDD!`);
-});
-//UPDATE de notre BDD
-con.query(`UPDATE Video SET VideoURL = '${video}' WHERE 1`);
-    console.log("video envoyée");
-}
+            // No erorr
+            console.log(`Connexion à la BDD!`);
+        });
+        //UPDATE de notre BDD
+        con.query(`UPDATE Video SET VideoURL = '${video}' WHERE 1`);
+        console.log("video envoyée");
+
+        con.query(`UPDATE Video SET VideoTexte = '${texte}' WHERE 1`);
+        console.log("texte envoyé");
+
+        con.query(`UPDATE Video SET VideoTime = '${time}' WHERE 1`);
+        console.log("time envoyé");
+    }
 
 });
 
