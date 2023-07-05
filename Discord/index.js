@@ -30,6 +30,10 @@ client.on("messageCreate", message => {
     //on regarde uniquement un channel spécifique
     let myMessage = message.content.split(" ");
 
+    if (myMessage[1]?.length <= 0 || myMessage[1]?.length == null) {
+        console.log("Vérifiez la commande");
+    } else {
+
     if (message.channel.id === "IdDeVotreChannelDiscord" && myMessage[0] === prefixImage) {
         let splitMessage = message.content.split(" ");
         let image = message.attachments.first().url;
@@ -98,7 +102,7 @@ client.on("messageCreate", message => {
         con.query(`UPDATE Image SET url = '${" "}' WHERE 1`);
         con.query(`UPDATE Image SET ImageTexte = '${" "}' WHERE 1`);
     }
-
+    }
 });
 
 client.login("Votre-Token-Du-Bot");
