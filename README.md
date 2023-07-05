@@ -41,6 +41,30 @@ Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
 d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
 
+### 🔧 Commandes
+
+- Les commandes à exécuter sur discord pour une image :
+
+```discord
+!image {Nombre} {text}
+```
+Par exemple : ```!image 13 voici mon texte``` ou encore ```!image 6```
+
+
+- Les commandes à exécuter sur discord pour une vidéo :
+
+```discord
+!video {Nombre} {text}
+```
+Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
+
+
+- Enfin, voici la commande à exécuter pour retirer du texte ou une url d'image / vidéo qui ne disparaît pas de l'écran :
+
+```discord
+!stop
+```
+
 ---
 
 ## 🆘 Problèmes
