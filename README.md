@@ -64,6 +64,7 @@ Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
 ```discord
 !stop
 ```
+*Gardez bien à l'esprit que le nombre est obligatoire car il permet de déterminer pendant combien de temps on laisse afficher l'image / vidéo.*
 
 ---
 
