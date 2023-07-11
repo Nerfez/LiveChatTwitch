@@ -61,16 +61,14 @@ client.on("messageCreate", (message) => {
       con.connect((err) => {
         // return error
         if (err) {
-          message.channel.send(
-            "L'image n'a pas été envoyée <@" + `${message.author.id}` + ">"
-          );
           return console.log(err);
         }
 
         // No erorr
         console.log(`Connexion à la BDD!`);
+      });
 
-        //UPDATE de notre BDD
+      //UPDATE de notre BDD
         con.query(`UPDATE Image SET url='${image}' WHERE 1`);
         con.query(`UPDATE Image SET ImageTime='${time}' WHERE 1`);
         con.query(`UPDATE Image SET ImageTexte='${texte}' WHERE 1`);
@@ -80,7 +78,6 @@ client.on("messageCreate", (message) => {
         message.channel.send(
           "L'image a été envoyée <@" + `${message.author.id}` + ">"
         );
-      });
     }
 
     if (myMessage[0] === prefixVideo &&
@@ -98,13 +95,11 @@ client.on("messageCreate", (message) => {
       con.connect((err) => {
         // return error
         if (err) {
-          message.channel.send(
-            "La vidéo n'a pas été envoyée <@" + `${message.author.id}` + ">"
-          );
           return console.log(err);
         }
         // No erorr
         console.log(`Connexion à la BDD!`);
+      });
 
         //UPDATE de notre BDD
         con.query(`UPDATE Video SET VideoURL ='${video}' WHERE 1`);
@@ -116,7 +111,6 @@ client.on("messageCreate", (message) => {
         message.channel.send(
           "La vidéo a été envoyée <@" + `${message.author.id}` + ">"
         );
-      });
     }
 
     if (myMessage[0] === prefixStop &&
@@ -124,15 +118,13 @@ client.on("messageCreate", (message) => {
       con.connect((err) => {
         // return error
         if (err) {
-          message.channel.send(
-            "Le stop n'a pas fonctionné <@" + `${message.author.id}` + ">"
-          );
           return console.log(err);
         }
         // No erorr
         console.log(`Connexion à la BDD!`);
+      });
 
-        //UPDATE de notre BDD
+      //UPDATE de notre BDD
         con.query(`UPDATE Video SET VideoURL = '${"vide"}' WHERE 1`);
         con.query(`UPDATE Video SET VideoTexte = '${" "}' WHERE 1`);
 
@@ -142,7 +134,6 @@ client.on("messageCreate", (message) => {
         message.channel.send(
           "Le stop a fonctionné <@" + `${message.author.id}` + ">"
         );
-      });
     }
 
     if (myMessage[0] === prefixHelp &&
