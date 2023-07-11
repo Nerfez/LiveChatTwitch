@@ -16,7 +16,7 @@ Pour faire fonctionner le projet il vous faudra des connaissances en :
 ### 🔧 Configuration
 
 Pour faire fonctionner LiveChat, il faut d'abord télécharger le [zip](https://github.com/Nerfez/LiveChatTwitch/archive/refs/heads/main.zip) du projet.
-Puis diriger vous dans le dossier Discord où figure le fichier ```index.js``` depuis votre terminal et entrez les commandes suivantes :
+Pensez à extraire le fichier zip puis dirigez vous dans le dossier Discord où figure le fichier ```index.js``` depuis votre terminal et entrez les commandes suivantes :
 
 ```nodejs
 npm init
@@ -34,9 +34,23 @@ Effectuez tous les changements nécessaires (token, mot de passe, nom de base de
 si vous n'êtes pas à l'aise avec la création d'un bot discord, je vous renvoie à cette vidéo qui explique parfaitement la création d'un bot discord : 
 https://www.youtube.com/watch?v=IErYPx-meD4&
 
-Puis lancer le fichier ```index.js``` depuis visual studio code.
+Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging)
 
-Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte).
+Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service d'un mois).
+
+Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 2 tables soit :
+
+| url     | ImageTexte | ImageTime |
+|-----------------|--------|---------|
+|                 |        |         |
+
+pour la table `Image`
+
+| url     | VideoTexte | VideoTime |
+|-----------------|--------|---------|
+|                 |        |         |
+
+pour la table `Video`
 
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
 d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
