@@ -107,7 +107,7 @@ client.on("messageCreate", (message) => {
         console.log(`Connexion à la BDD!`);
 
         //UPDATE de notre BDD
-        con.query(`UPDATE Video SET url='${video}' WHERE 1`);
+        con.query(`UPDATE Video SET VideoURL ='${video}' WHERE 1`);
         con.query(`UPDATE Video SET VideoTime='${time}' WHERE 1`);
         con.query(`UPDATE Video SET VideoTexte='${texte}' WHERE 1`);
         console.log("video envoyée", video);
@@ -133,11 +133,11 @@ client.on("messageCreate", (message) => {
         console.log(`Connexion à la BDD!`);
 
         //UPDATE de notre BDD
-        con.query(`UPDATE Video SET VideoURL = '${" "}' WHERE 1`);
+        con.query(`UPDATE Video SET VideoURL = '${"vide"}' WHERE 1`);
         con.query(`UPDATE Video SET VideoTexte = '${" "}' WHERE 1`);
 
         //UPDATE de notre BDD
-        con.query(`UPDATE Image SET url = '${" "}' WHERE 1`);
+        con.query(`UPDATE Image SET url = '${"vide"}' WHERE 1`);
         con.query(`UPDATE Image SET ImageTexte = '${" "}' WHERE 1`);
         message.channel.send(
           "Le stop a fonctionné <@" + `${message.author.id}` + ">"
