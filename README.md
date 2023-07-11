@@ -52,6 +52,8 @@ pour la table `Image`
 
 pour la table `Video`
 
+Si vous le souhaitez, vous pouvez importer directement le fichier `bdd.sql` à votre base, celà permettra d'avoir les 2 tables identiques avec le code. (mais naturellement pas le même host, dbName, user, pass)
+
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
 d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
 
@@ -86,5 +88,7 @@ Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
 
 En cas d'erreur, n'hésitez pas à [créer une demande](https://github.com/Nerfez/LiveChatTwitch/issues) avec les détails qui conviennent pour que je puisse le corriger.
 Ou à me contacter sur twitter : @Zefren_
+
+Par ailleurs, vérifiez que vous n'avez pas de VPN actif ou de proxy, celà engendre des problèmes d'update à la base de donnée.
 
 En ce qui concerne le projet en lui-même, vous pouvez tout reprendre pour l'améliorer et en faire ce que vous voulez.
