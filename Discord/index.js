@@ -48,16 +48,17 @@ client.on("messageCreate", message => {
 
             // No erorr
             console.log(`Connexion à la BDD!`);
+            
+            //UPDATE de notre BDD
+            con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
+            console.log("image envoyée");
+
+            con.query(`UPDATE Image SET ImageTexte = '${texte}' WHERE 1`);
+            console.log("texte envoyé");
+
+            con.query(`UPDATE Image SET ImageTime = '${time}' WHERE 1`);
+            console.log("time envoyé");
         });
-        //UPDATE de notre BDD
-        con.query(`UPDATE Image SET url = '${image}' WHERE 1`);
-        console.log("image envoyée");
-
-        con.query(`UPDATE Image SET ImageTexte = '${texte}' WHERE 1`);
-        console.log("texte envoyé");
-
-        con.query(`UPDATE Image SET ImageTime = '${time}' WHERE 1`);
-        console.log("time envoyé");
     }
 
     if (message.channel.id === "IdDeVotreChannelDiscord" && myMessage[0] === prefixVideo) {
@@ -74,16 +75,17 @@ client.on("messageCreate", message => {
 
             // No erorr
             console.log(`Connexion à la BDD!`);
+
+            //UPDATE de notre BDD
+            con.query(`UPDATE Video SET VideoURL = '${video}' WHERE 1`);
+            console.log("video envoyée");
+
+            con.query(`UPDATE Video SET VideoTexte = '${texte}' WHERE 1`);
+            console.log("texte envoyé");
+
+            con.query(`UPDATE Video SET VideoTime = '${time}' WHERE 1`);
+            console.log("time envoyé");
         });
-        //UPDATE de notre BDD
-        con.query(`UPDATE Video SET VideoURL = '${video}' WHERE 1`);
-        console.log("video envoyée");
-
-        con.query(`UPDATE Video SET VideoTexte = '${texte}' WHERE 1`);
-        console.log("texte envoyé");
-
-        con.query(`UPDATE Video SET VideoTime = '${time}' WHERE 1`);
-        console.log("time envoyé");
     }
 
      if (message.channel.id === "IdDeVotreChannelDiscord" && myMessage[0] === prefixStop) {
@@ -93,14 +95,15 @@ client.on("messageCreate", message => {
 
             // No erorr
             console.log(`Connexion à la BDD!`);
-        });
-        //UPDATE de notre BDD
-        con.query(`UPDATE Video SET VideoURL = '${" "}' WHERE 1`);
-        con.query(`UPDATE Video SET VideoTexte = '${" "}' WHERE 1`);
 
-        //UPDATE de notre BDD
-        con.query(`UPDATE Image SET url = '${" "}' WHERE 1`);
-        con.query(`UPDATE Image SET ImageTexte = '${" "}' WHERE 1`);
+            //UPDATE de notre Table Video
+            con.query(`UPDATE Video SET VideoURL = '${" "}' WHERE 1`);
+            con.query(`UPDATE Video SET VideoTexte = '${" "}' WHERE 1`);
+
+            //UPDATE de notre Table Image
+            con.query(`UPDATE Image SET url = '${" "}' WHERE 1`);
+            con.query(`UPDATE Image SET ImageTexte = '${" "}' WHERE 1`);
+        });
     }
     }
 });
