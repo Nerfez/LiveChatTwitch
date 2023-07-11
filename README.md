@@ -34,7 +34,13 @@ Effectuez tous les changements nécessaires (token, mot de passe, nom de base de
 si vous n'êtes pas à l'aise avec la création d'un bot discord, je vous renvoie à cette vidéo qui explique parfaitement la création d'un bot discord : 
 https://www.youtube.com/watch?v=IErYPx-meD4&
 
-Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging)
+Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging) Si vous voulez plus de libertés et lancer le fichier depuis cmd au lieu de passer à chaque fois par visual studio, ajoutez dans le fichier `package.json` ligne 8 :
+
+```nodejs
+"start": "node ."
+```
+
+Vous pourrez alors lancer votre fichier avec la commande ```npm run start```
 
 Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service d'un mois).
 
