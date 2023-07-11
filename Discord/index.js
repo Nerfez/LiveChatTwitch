@@ -161,8 +161,6 @@ function isPrefixValid(message) {
   switch (message) {
     case prefixImage:
       return true;
-    case prefixStop:
-      return true;
     case prefixVideo:
       return true;
     default:
