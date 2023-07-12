@@ -23,7 +23,11 @@ let con = createConnection({
   charset: "utf8mb4",
 });
 
-client.on("ready", () => {
+client.on("ready", (message) => {
+    client.channels.fetch('IdDeVotreChannelDiscord')
+    .then(channel => {
+        channel.send("Je suis prêt, vous pouvez envoyez des images / vidéos. !help");
+    })
   console.log("LiveChat Prêt");
 });
 
