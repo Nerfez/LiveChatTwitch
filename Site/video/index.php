@@ -109,9 +109,9 @@ $password = 'MotDePasse';
 		function ChangeVideo() {
 
 			const interval = setInterval(function() {
-				AfficherTexte();
-				Database();
 				Time();
+				Database();
+				AfficherTexte();
 			}, 7000); //Délai de scrutation pour chaque video
 		}
 	</script>
