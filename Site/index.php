@@ -86,9 +86,9 @@ $password = 'MotDePasse';
 		function ChangeImage() {
 
 			const interval = setInterval(function() {
-				AfficherTexte();
-				Database();
 				Time();
+				Database();
+				AfficherTexte();
 			}, 7000);
 		}
 	</script>
