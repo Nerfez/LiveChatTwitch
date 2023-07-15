@@ -6,6 +6,8 @@ const prefixVideo = "!video";
 const prefixStop = "!stop";
 const prefixHelp = "!help";
 
+const idChannelDiscord = "1654654646545212"; //faux id faut le remplacer par l'id de votre channel discord
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -24,7 +26,7 @@ let con = createConnection({
 });
 
 client.on("ready", (message) => {
-    client.channels.fetch('IdDeVotreChannelDiscord')
+    client.channels.fetch(idChannelDiscord)
     .then(channel => {
         channel.send("Je suis prêt, vous pouvez envoyez des images / vidéos. !help");
     })
@@ -38,9 +40,9 @@ client.on("messageCreate", (message) => {
   if (
     (!myMessage[1]?.match("^[0-9]+$") &&
       isPrefixValid(myMessage[0]) &&
-      message.channel.id === "IdDeVotreChannelDiscord") ||
+      message.channel.id === idChannelDiscord) ||
     (isPrefixValid(myMessage[0]) &&
-      message.channel.id === "IdDeVotreChannelDiscord" &&
+      message.channel.id === idChannelDiscord &&
       message.attachments.size <= 0)
   ) {
     console.log("Vérifiez la commande");
@@ -51,7 +53,7 @@ client.on("messageCreate", (message) => {
     );
   } else {
     if (myMessage[0] === prefixImage &&
-      message.channel.id === "IdDeVotreChannelDiscord") {
+      message.channel.id === idChannelDiscord) {
       let splitMessage = message.content.split(" ");
       let image = message.attachments.first().url;
       let time = splitMessage[1] * 1000;
@@ -85,7 +87,7 @@ client.on("messageCreate", (message) => {
     }
 
     if (myMessage[0] === prefixVideo &&
-      message.channel.id === "IdDeVotreChannelDiscord") {
+      message.channel.id === idChannelDiscord) {
       let splitMessage = message.content.split(" ");
       let video = message.attachments.first().url;
       let time = splitMessage[1] * 1000;
@@ -118,7 +120,7 @@ client.on("messageCreate", (message) => {
     }
 
     if (myMessage[0] === prefixStop &&
-      message.channel.id === "IdDeVotreChannelDiscord") {
+      message.channel.id === idChannelDiscord) {
       con.connect((err) => {
         // return error
         if (err) {
@@ -141,7 +143,7 @@ client.on("messageCreate", (message) => {
     }
 
     if (myMessage[0] === prefixHelp &&
-      message.channel.id === "IdDeVotreChannelDiscord") {
+      message.channel.id === idChannelDiscord) {
       message.channel.send(
         "<@" +
           `${message.author.id}` +
