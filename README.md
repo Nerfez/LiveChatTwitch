@@ -3,6 +3,8 @@
 Le but de ce projet est de reproduire le LiveChat qu'utilisent la CACABOX (streamers HugoDélire,Grimkujow,Potatoz,Terracid,etc..).
 Lorsque l'on envoi une image/vidéo dans un channel discord, elle s'affiche sur leur live.
 
+J'ai développer ça sur mon temps libre et bénévolement en ayant détaillé comment s'y prendre en dessous donc soyez sympa et évitez de me demander de vous setup depuis 0 pour que votre bot fonctionne...
+
 Pour faire fonctionner le projet il vous faudra des connaissances en :
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()
@@ -10,6 +12,7 @@ Pour faire fonctionner le projet il vous faudra des connaissances en :
 [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)]()
 [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)]()
 [![Twitch](https://img.shields.io/badge/Twitch-9347FF?style=for-the-badge&logo=twitch&logoColor=white)]()
+
 
 ## 📌 Présentation
 
@@ -34,7 +37,7 @@ Effectuez tous les changements nécessaires (token, mot de passe, nom de base de
 si vous n'êtes pas à l'aise avec la création d'un bot discord, je vous renvoie à cette vidéo qui explique parfaitement la création d'un bot discord : 
 https://www.youtube.com/watch?v=IErYPx-meD4&
 
-Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging) Si vous voulez plus de libertés et lancer le fichier depuis cmd au lieu de passer à chaque fois par visual studio, ajoutez dans le fichier `package.json` ligne 8 :
+Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging) Si vous voulez plus de libertés et lancer le fichier depuis cmd au lieu de passer à chaque fois par visual studio, puis entrez la commande `node .`. Si vous ajoutez dans le fichier `package.json` dans les scripts :
 
 ```nodejs
 "start": "node ."
@@ -42,7 +45,7 @@ Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start D
 
 Vous pourrez alors lancer votre fichier avec la commande ```npm run start```
 
-Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service d'un mois).
+Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service de 120j).
 
 Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 2 tables soit :
 
@@ -93,8 +96,9 @@ Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
 ## 🆘 Problèmes
 
 En cas d'erreur, n'hésitez pas à [créer une demande](https://github.com/Nerfez/LiveChatTwitch/issues) avec les détails qui conviennent pour que je puisse le corriger.
-Ou à me contacter sur twitter : @Zefren_
+Ou à me contacter sur twitter : @Zefren_ (sauf si c'est pour que je vous setup de A à Z le bot)
 
+Vérifiez bien que tous vos fichiers contiennent les bons identifiants, mdp, token etc car le bot fonctionne à 100%.
 Par ailleurs, vérifiez que vous n'avez pas de VPN actif ou de proxy, celà engendre des problèmes d'update à la base de donnée.
 
-En ce qui concerne le projet en lui-même, vous pouvez tout reprendre pour l'améliorer et en faire ce que vous voulez.
+En ce qui concerne le projet en lui-même, vous pouvez tout reprendre pour l'améliorer et en faire ce que vous voulez. Je compte pas être très actif sur les mises à jour.
