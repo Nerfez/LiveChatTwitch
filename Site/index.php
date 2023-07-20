@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<?php
-$host = 'mysql-NomServeur';
-$database = 'NomDatabase';
-$username = 'NomUtilisateur';
-$password = 'MotDePasse';
-
-?>
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
-	<title>Exemple livechat OBS overlay</title>
+	<title>LiveChat Image - Zefren</title>
 </head>
 
 <body onload="ChangeImage()">
@@ -21,6 +14,8 @@ $password = 'MotDePasse';
 	<script>
 		var texteImage = "";
 		var time = 20000;
+		var width = 1920;
+		var height = 1080;
 		const img = document.getElementById("message");
 		var urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 
@@ -33,62 +28,51 @@ $password = 'MotDePasse';
 			ajax.open(method, url, asynchronous);
 			ajax.send();
 			ajax.onload = function() {
-				console.log("recu : " + this.responseText + " et url : " + urlRecu);
-				if (this.responseText != urlRecu) {
-					urlRecu = this.responseText;
-					img.src = "" + urlRecu;
-				}
-			}
-		}
-
-		function Clear() {
-			console.log("clear");
-			img.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
-			document.getElementById("texteIm").textContent = "";
-			document.getElementById("btnMute").style.display = "none";
-		}
-
-		function Time() {
-			var ajax = new XMLHttpRequest();
-			var method = "GET";
-			var url = "getValueTime.php";
-			var asynchronous = true;
-
-			ajax.open(method, url, asynchronous);
-			ajax.send();
-			ajax.onload = function() {
-				if (this.responseText != time) {
-					time = this.responseText;
+				let messageRecu = this.responseText.split("$");
+				console.log("message:",messageRecu);
+				if (messageRecu[0] != time) {
+					time = messageRecu[0];
 					setTimeout(
 						function() {
 							Clear();
 						}, time);
 				}
-			}
-		}
 
-		function AfficherTexte() {
-			var ajax = new XMLHttpRequest();
-			var method = "GET";
-			var url = "getValueText.php";
-			var asynchronous = true;
+				if (messageRecu[1] != width) {
+					width = messageRecu[1];
+					img.width = width;
+				}
 
-			ajax.open(method, url, asynchronous);
-			ajax.send();
-			ajax.onload = function() {
-				if (this.responseText != texteImage) {
-					texteImage = this.responseText;
+				if (messageRecu[2] != height) {
+					height = messageRecu[2];
+					img.height = height;
+				}
+
+				if (messageRecu[3] != urlRecu) {
+					urlRecu = messageRecu[3];
+					img.src = "" + urlRecu;
+				}
+				
+				if (messageRecu[4] != texteImage) {
+					texteImage = messageRecu[4];
 					document.getElementById("texteIm").textContent = texteImage;
 				}
-			}
+			}//FIN FONCTION AJAX
+		}
+
+		function Clear() {
+			console.log("clear");
+			img.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+			img.width = 1920;
+			img.height = 1080;
+			document.getElementById("texteIm").textContent = "";
+			document.getElementById("btnMute").style.display = "none";
 		}
 
 		function ChangeImage() {
 
 			const interval = setInterval(function() {
-				Time();
 				Database();
-				AfficherTexte();
 			}, 7000);
 		}
 	</script>
