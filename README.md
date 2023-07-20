@@ -53,7 +53,7 @@ Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MyS
 
 pour la table `Image`
 
-| url     | VideoTexte | VideoTime | Width | Height |
+| VideoURL     | VideoTexte | VideoTime | Width | Height |
 |-----------------|--------|---------|---------|---------|
 |                 |        |         |         |         |
 
