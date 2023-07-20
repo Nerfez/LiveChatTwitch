@@ -3,8 +3,6 @@
 Le but de ce projet est de reproduire le LiveChat qu'utilisent la CACABOX (streamers HugoDélire,Grimkujow,Potatoz,Terracid,etc..).
 Lorsque l'on envoi une image/vidéo dans un channel discord, elle s'affiche sur leur live.
 
-J'ai développer ça sur mon temps libre et bénévolement en ayant détaillé comment s'y prendre en dessous donc soyez sympa et évitez de me demander de vous setup depuis 0 pour que votre bot fonctionne...
-
 Pour faire fonctionner le projet il vous faudra des connaissances en :
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()
@@ -61,7 +59,7 @@ pour la table `Image`
 
 pour la table `Video`
 
-Si vous le souhaitez, vous pouvez importer directement le fichier `bdd.sql` à votre base, celà permettra d'avoir les 2 tables identiques avec le code. (mais naturellement pas le même host, dbName, user, pass)
+Si vous le souhaitez, vous pouvez importer directement le fichier `livechat_test.sql` à votre base, celà permettra d'avoir les 2 tables identiques avec le code. (mais naturellement pas le même host, dbName, user, pass)
 
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
 d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
@@ -82,6 +80,11 @@ Par exemple : ```!image 13 voici mon texte``` ou encore ```!image 6```
 !video {Nombre} {text}
 ```
 Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
+
+```discord
+!fullscreen
+```
+Cela permet d'activer / désactiver l'envoi d'image en plein écran, autrement les dimensions prises en compte sont celles de l'image.
 
 
 - Enfin, voici la commande à exécuter pour retirer du texte ou une url d'image / vidéo qui ne disparaît pas de l'écran :
