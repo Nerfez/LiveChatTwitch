@@ -47,15 +47,15 @@ Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à
 
 Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 2 tables soit :
 
-| url     | ImageTexte | ImageTime |
-|-----------------|--------|---------|
-|                 |        |         |
+| url     | ImageTexte | ImageTime | Width | Height |
+|-----------------|--------|---------|---------|---------|
+|                 |        |         |          |         |
 
 pour la table `Image`
 
-| url     | VideoTexte | VideoTime |
-|-----------------|--------|---------|
-|                 |        |         |
+| url     | VideoTexte | VideoTime | Width | Height |
+|-----------------|--------|---------|---------|---------|
+|                 |        |         |         |         |
 
 pour la table `Video`
 
