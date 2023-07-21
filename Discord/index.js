@@ -111,11 +111,11 @@ client.on("messageCreate", (message) => {
         });
 
         //UPDATE de notre BDD TABLE Image
-        con.query(`UPDATE Image SET url='${image}' WHERE 1`);
-        con.query(`UPDATE Image SET ImageTime='${time}' WHERE 1`);
-        con.query(`UPDATE Image SET ImageTexte='${texte}' WHERE 1`);
-        con.query(`UPDATE Image SET Width='${width}' WHERE 1`);
-        con.query(`UPDATE Image SET Height='${height}' WHERE 1`);
+        con.query(`UPDATE image SET url='${image}' WHERE 1`);
+        con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
+        con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);
+        con.query(`UPDATE image SET Width='${width}' WHERE 1`);
+        con.query(`UPDATE image SET Height='${height}' WHERE 1`);
 
         message.channel.send(
           "L'image a été envoyée <@" + `${message.author.id}` + ">"
@@ -154,11 +154,11 @@ client.on("messageCreate", (message) => {
         });
 
         //UPDATE de notre BDD TABLE Video
-        con.query(`UPDATE Video SET VideoURL='${video}' WHERE 1`);
-        con.query(`UPDATE Video SET VideoTime='${time}' WHERE 1`);
-        con.query(`UPDATE Video SET VideoTexte='${texte}' WHERE 1`);
-        con.query(`UPDATE Video SET Width='${width}' WHERE 1`);
-        con.query(`UPDATE Video SET Height='${height}' WHERE 1`);
+        con.query(`UPDATE video SET VideoURL='${video}' WHERE 1`);
+        con.query(`UPDATE video SET VideoTime='${time}' WHERE 1`);
+        con.query(`UPDATE video SET VideoTexte='${texte}' WHERE 1`);
+        con.query(`UPDATE video SET Width='${width}' WHERE 1`);
+        con.query(`UPDATE video SET Height='${height}' WHERE 1`);
         message.channel.send(
           "La vidéo a été envoyée <@" + `${message.author.id}` + ">"
         ); //FIN UPDATE
@@ -177,12 +177,12 @@ client.on("messageCreate", (message) => {
     });
 
     //UPDATE de notre BDD TABLE Video
-    con.query(`UPDATE Video SET VideoURL = '${""}' WHERE 1`);
-    con.query(`UPDATE Video SET VideoTexte = '${" "}' WHERE 1`);
+    con.query(`UPDATE video SET VideoURL = '${""}' WHERE 1`);
+    con.query(`UPDATE video SET VideoTexte = '${" "}' WHERE 1`);
 
     //UPDATE de notre BDD TABLE Image
-    con.query(`UPDATE Image SET url = '${""}' WHERE 1`);
-    con.query(`UPDATE Image SET ImageTexte = '${" "}' WHERE 1`);
+    con.query(`UPDATE image SET url = '${""}' WHERE 1`);
+    con.query(`UPDATE image SET ImageTexte = '${" "}' WHERE 1`);
     message.channel.send(
       "Le stop a fonctionné <@" + `${message.author.id}` + ">"
     );
