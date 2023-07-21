@@ -32,23 +32,17 @@
 			ajax.send();
 			ajax.onload = function() {
 				let messageRecu = this.responseText.split("$");
-				if (messageRecu[0] != time) {
+				if (messageRecu[3] != urlRecu) {
 					time = messageRecu[0];
 					setTimeout(
 						function() {
 							Clear();
 						}, time);
-				}
-				if (messageRecu[1] != width) {
-					width = messageRecu[1];
-					img.width = width;
-				}
-				if (messageRecu[2] != height) {
-					height = messageRecu[2];
-					img.height = height;
-				}
-				if (messageRecu[3] != urlRecu) {
-					urlRecu = messageRecu[3];
+				width = messageRecu[1];
+				video.width = width;
+				height = messageRecu[2];
+				video.height = height;
+				urlRecu = messageRecu[3];
 					video.src = "" + urlRecu;
 					video.load();
 					video.play();
@@ -58,8 +52,6 @@
 							document.getElementById("btnMute").style.display = "block";
 							clickButton();
 						}, 1000);
-				}
-				if (messageRecu[4] != texteVideo) {
 					texteVideo = messageRecu[4];
 					document.getElementById("texteVid").textContent = texteVideo;
 				}
