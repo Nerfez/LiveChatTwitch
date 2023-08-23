@@ -1,13 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 
 video#video {
-  min-width: 100%;
-  width: 100vw;
-  height: 100vh;
   object-fit: cover;
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: -100;
 }
 
