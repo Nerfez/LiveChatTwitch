@@ -14,10 +14,11 @@ video#video {
 h1 {
   color: whitesmoke;
   font-size: 3rem;
-  width: 1500px;
-  margin: 0 auto;
   text-align: center;
   text-shadow: black 0.1em 0.1em 0.2em;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 
