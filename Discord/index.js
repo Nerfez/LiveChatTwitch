@@ -49,9 +49,12 @@ let con = createConnection({
 //Lancement du bot Discord
 client.on("ready", () => {
   client.channels.fetch(idChannelDiscord).then((channel) => {
-    channel.send(
-      "Je suis prêt, vous pouvez envoyez des images / vidéos. !help"
-    );
+    let exampleEmbed = {
+        title:
+          "LiveChat opérationnel !help",
+        color: 0x0099ff,
+      };
+      channel.send({ embeds: [exampleEmbed] });
   });
   console.log("LiveChat Prêt");
 });
@@ -73,17 +76,17 @@ client.on("messageCreate", (message) => {
       myMessage[1]?.match("/^d+$/") &&
       myMessage[1]?.length <= 3)
   ) {
-    console.log("Vérifiez la commande");
-    message.channel.send(
-      "Erreur dans la commande <@" +
-        `${message.author.id}` +
-        "> !help pour plus d'informations"
-    );
+    let exampleEmbed = {
+        title:
+          "Erreur dans la commande !",
+        color: 0xff0000,
+      };
+      message.channel.send({ embeds: [exampleEmbed] });
   } else {
     //Si le message reçu correspond à l'une des commandes alors on vérifie de quelle commande il s'agit
     if (
       myMessage[0] === prefixImage &&
-      message.channel.id === idChannelDiscord
+      message.channel.id === idChannelDiscord && message.attachments.first()
     ) {
       //Si c'est une image
       let height = message.attachments.first().height;
@@ -118,16 +121,12 @@ client.on("messageCreate", (message) => {
         con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);
         con.query(`UPDATE image SET Width='${width}' WHERE 1`);
         con.query(`UPDATE image SET Height='${height}' WHERE 1`);
-
-        message.channel.send(
-          "L'image a été envoyée <@" + `${message.author.id}` + ">"
-        );
       } //FIN CONDITION IMAGE
     }
 
     if (
       myMessage[0] === prefixVideo &&
-      message.channel.id === idChannelDiscord
+      message.channel.id === idChannelDiscord && message.attachments.first()
     ) {
       //Si c'est une vidéo
       let video = message.attachments.first().url;
@@ -161,10 +160,7 @@ client.on("messageCreate", (message) => {
         con.query(`UPDATE video SET VideoTime='${time}' WHERE 1`);
         con.query(`UPDATE video SET VideoTexte='${texte}' WHERE 1`);
         con.query(`UPDATE video SET Width='${width}' WHERE 1`);
-        con.query(`UPDATE video SET Height='${height}' WHERE 1`);
-        message.channel.send(
-          "La vidéo a été envoyée <@" + `${message.author.id}` + ">"
-        ); //FIN UPDATE
+        con.query(`UPDATE video SET Height='${height}' WHERE 1`);//FIN UPDATE
       }
     }
   }
@@ -189,10 +185,7 @@ client.on("messageCreate", (message) => {
 
       //UPDATE de notre BDD TABLE Image
       con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
-      con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);
-      message.channel.send(
-        "Le texte a été envoyée <@" + `${message.author.id}` + ">"
-      ); //FIN UPDATE
+      con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);//FIN UPDATE
     }
   }
 
@@ -213,16 +206,14 @@ client.on("messageCreate", (message) => {
     //UPDATE de notre BDD TABLE Image
     con.query(`UPDATE image SET url = '${""}' WHERE 1`);
     con.query(`UPDATE image SET ImageTexte = '${" "}' WHERE 1`);
-    message.channel.send(
-      "Le stop a fonctionné <@" + `${message.author.id}` + ">"
-    );
   }
   if (myMessage[0] === prefixHelp && message.channel.id === idChannelDiscord) {
-    message.channel.send(
-      "<@" +
-        `${message.author.id}` +
-        "> Un message doit contenir obligatoirement une image ou une vidéo. La commande doit commencer par !image ou !video suivit d'un nombre qui représente le temps en secondes que l'image ou la vidéo va apparaître.\n !stop pour réinitialiser l'image / vidéo \n !fullscreen pour activer / desactiver l'affiche image plein écran \nPour plus d'exemple rendez-vous sur : <https://github.com/Nerfez/LiveChatTwitch>"
-    );
+    let exampleEmbed = {
+      title:
+        "Liste des commandes : \n!video {time} {message} - envoi d'une video\n!image {time} {message} - envoi d'une image\n!texte {time} {message} - envoi d'un message\n!fullscreen - activer/désactiver\n!stop - retirer l'image/vidéo/texte à l'écran",
+      color: 0xffffff,
+    };
+    message.channel.send({ embeds: [exampleEmbed] });
   }
 
   if (
@@ -230,18 +221,20 @@ client.on("messageCreate", (message) => {
     message.channel.id === idChannelDiscord
   ) {
     if (isFullscreen === false) {
-      message.channel.send(
-        "<@" +
-          `${message.author.id}` +
-          "> Désormais, les photos et vidéos seront envoyées en plein écran. (1920x1080)"
-      );
+      let exampleEmbed = {
+        title:
+          "Fullscreen activé !",
+        color: 0x008000,
+      };
+      message.channel.send({ embeds: [exampleEmbed] });
       isFullscreen = true;
     } else if (isFullscreen === true) {
-      message.channel.send(
-        "<@" +
-          `${message.author.id}` +
-          "> Désormais, la taille des photos et vidéos envoyées correspondront à leurs tailles définies."
-      );
+      let exampleEmbed = {
+        title:
+          "Fullscreen désactivé !",
+        color: 0xff0000,
+      };
+      message.channel.send({ embeds: [exampleEmbed] });
       isFullscreen = false;
     }
   }
