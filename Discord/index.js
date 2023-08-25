@@ -7,6 +7,7 @@ const prefixVideo = "!video";
 const prefixFullScreen = "!fullscreen";
 const prefixStop = "!stop";
 const prefixHelp = "!help";
+const prefixTexte = "!texte";
 
 const idChannelDiscord = "0003424000023312123"; //Remplacez par l'id de votre channel Discord
 const TOKEN = "QZOIJSQ8fd394jdsdSE934.3424DSoze.324dsEROP.23REkdf"; //Remplacez par le Token de votre bot discord
@@ -99,6 +100,7 @@ client.on("messageCreate", (message) => {
         myMessage[0].length + myMessage[1].length + 2,
         message.content.length
       );
+      texte = checkTexte(texte);
       if (message.attachments.first().contentType.startsWith("image")) {
         con.connect((err) => {
           //En cas d'erreur
@@ -142,6 +144,7 @@ client.on("messageCreate", (message) => {
         myMessage[0]?.length + myMessage[1]?.length + 2,
         message.content.length
       );
+      texte = checkTexte(texte);
 
       if (message.attachments.first().contentType.startsWith("video")) {
         con.connect((err) => {
@@ -163,6 +166,33 @@ client.on("messageCreate", (message) => {
           "La vidéo a été envoyée <@" + `${message.author.id}` + ">"
         ); //FIN UPDATE
       }
+    }
+  }
+
+    if (myMessage[0] === prefixTexte && message.channel.id === idChannelDiscord) {
+    {
+      //Si c'est du texte
+      let time = myMessage[1] * 1000;
+      let texte = message.content.substring(
+        myMessage[0]?.length + myMessage[1]?.length + 2,
+        message.content.length
+      );
+      texte = checkTexte(texte);
+      con.connect((err) => {
+        //En cas d'erreur
+        if (err) {
+          return console.log(err);
+        }
+        //Si il n'y a pas d'erreur
+        console.log(`Connexion à la BDD!`);
+      });
+
+      //UPDATE de notre BDD TABLE Image
+      con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
+      con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);
+      message.channel.send(
+        "Le texte a été envoyée <@" + `${message.author.id}` + ">"
+      ); //FIN UPDATE
     }
   }
 
@@ -238,6 +268,13 @@ function isPrefixValid(message) {
     default:
       return false;
   }
+}
+
+/*
+Permet de supprimer les ' car cela provoque des erreurs dans la requete
+*/
+function checkTexte(message) {
+  return (message.replaceAll(`'`, ` `));
 }
 
 /*
