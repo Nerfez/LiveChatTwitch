@@ -47,9 +47,9 @@ Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à
 
 Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 2 tables soit :
 
-| url     | ImageTexte | ImageTime | Width | Height |
-|-----------------|--------|---------|---------|---------|
-|                 |        |         |          |         |
+| url     | ImageTexte | ImageTime | Width | Height | Audio |
+|-----------------|--------|---------|---------|---------|--|
+|                 |        |         |          |         |  |
 
 pour la table `Image`
 
@@ -81,11 +81,26 @@ Par exemple : ```!image 13 voici mon texte``` ou encore ```!image 6```
 ```
 Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
 
+- Les commandes à exécuter sur discord pour le fullscreen :
+
 ```discord
 !fullscreen
 ```
 Cela permet d'activer / désactiver l'envoi d'image en plein écran, autrement les dimensions prises en compte sont celles de l'image.
 
+- Les commandes à exécuter sur discord pour un audio :
+
+```discord
+!audio {Nombre} {text}
+```
+Cela permet d'envoyer un audio mp3, par exemple : ```!audio 11 voicidutexte``` ou encore ```!audio 7```
+
+- Les commandes à exécuter sur discord pour du texte :
+
+```discord
+!texte {Nombre} {text}
+```
+Cela permet d'envoyer un texte, par exemple : ```!texte 5 voicidutexte``` ou encore ```!texte 12```
 
 - Enfin, voici la commande à exécuter pour retirer du texte ou une url d'image / vidéo qui ne disparaît pas de l'écran :
 
