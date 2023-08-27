@@ -7,6 +7,7 @@ const prefixVideo = "!video";
 const prefixFullScreen = "!fullscreen";
 const prefixStop = "!stop";
 const prefixHelp = "!help";
+const prefixAudio = "!audio";
 const prefixTexte = "!texte";
 
 const idChannelDiscord = "0003424000023312123"; //Remplacez par l'id de votre channel Discord
@@ -50,11 +51,11 @@ let con = createConnection({
 client.on("ready", () => {
   client.channels.fetch(idChannelDiscord).then((channel) => {
     let exampleEmbed = {
-        title:
-          "LiveChat opérationnel !help",
-        color: 0x0099ff,
-      };
-      channel.send({ embeds: [exampleEmbed] });
+      title:
+        "LiveChat opérationnel !help",
+      color: 0x0099ff,
+    };
+    channel.send({ embeds: [exampleEmbed] });
   });
   console.log("LiveChat Prêt");
 });
@@ -77,11 +78,11 @@ client.on("messageCreate", (message) => {
       myMessage[1]?.length <= 3)
   ) {
     let exampleEmbed = {
-        title:
-          "Erreur dans la commande !",
-        color: 0xff0000,
-      };
-      message.channel.send({ embeds: [exampleEmbed] });
+      title:
+        "Erreur dans la commande !",
+      color: 0xff0000,
+    };
+    message.channel.send({ embeds: [exampleEmbed] });
   } else {
     //Si le message reçu correspond à l'une des commandes alors on vérifie de quelle commande il s'agit
     if (
@@ -165,7 +166,7 @@ client.on("messageCreate", (message) => {
     }
   }
 
-    if (myMessage[0] === prefixTexte && message.channel.id === idChannelDiscord) {
+  if (myMessage[0] === prefixTexte && message.channel.id === idChannelDiscord) {
     {
       //Si c'est du texte
       let time = myMessage[1] * 1000;
@@ -189,6 +190,33 @@ client.on("messageCreate", (message) => {
     }
   }
 
+  if (myMessage[0] === prefixAudio && message.channel.id === idChannelDiscord && message.attachments.first()) {
+    {
+      //Si c'est un audio
+      let audio = message.attachments.first().url;
+      console.log("audio: ", audio);
+      let time = myMessage[1] * 1000;
+      let texte = message.content.substring(
+        myMessage[0]?.length + myMessage[1]?.length + 2,
+        message.content.length
+      );
+      texte = checkTexte(texte);
+      con.connect((err) => {
+        //En cas d'erreur
+        if (err) {
+          return console.log(err);
+        }
+        //Si il n'y a pas d'erreur
+        console.log(`Connexion à la BDD!`);
+      });
+
+      //UPDATE de notre BDD TABLE Image
+      con.query(`UPDATE image SET Audio='${audio}' WHERE 1`);
+      con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
+      con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);//FIN UPDATE
+    }
+  }
+
   if (myMessage[0] === prefixStop && message.channel.id === idChannelDiscord) {
     con.connect((err) => {
       //en cas d'erreur
@@ -204,6 +232,7 @@ client.on("messageCreate", (message) => {
     con.query(`UPDATE video SET VideoTexte = '${" "}' WHERE 1`);
 
     //UPDATE de notre BDD TABLE Image
+    con.query(`UPDATE image SET Audio='${""}' WHERE 1`);
     con.query(`UPDATE image SET url = '${""}' WHERE 1`);
     con.query(`UPDATE image SET ImageTexte = '${" "}' WHERE 1`);
   }
@@ -258,6 +287,8 @@ function isPrefixValid(message) {
       return true;
     case prefixFullScreen:
       return true;
+    case prefixAudio:
+      return true;
     default:
       return false;
   }
@@ -276,3 +307,5 @@ function checkTexte(message) {
  * et pensez à bien remplacer par votre Token en haut du fichier (ligne 12)
  */
 client.login(TOKEN);
+
+
