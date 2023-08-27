@@ -11,12 +11,20 @@
 <body onload="ChangeImage()">
 	<h1 id="texteIm">SALUT A TOUS</h1>
 	<img id="message" width="1920" height="1080" src=" https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
+	<audio id="audioParent" hidden>
+		<source id="audioChild" src="https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3" type="audio/mpeg">
+	  </audio>
+	  <input id="btnMute" type="button" value="Unmute">
 	<script>
 		var texteImage = "";
 		var time = 20000;
+		var btn = document.querySelector('input');
 		var width = 1920;
 		var height = 1080;
+		var audio = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
 		const img = document.getElementById("message");
+		const audioParent = document.getElementById("audioParent");
+		const audioSrc = document.getElementById("audioChild");
 		var urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 
 		function Database() {
@@ -29,7 +37,6 @@
 			ajax.send();
 			ajax.onload = function() {
 				let messageRecu = this.responseText.split("$");
-				console.log("message:",messageRecu);
 				if (messageRecu[0] != time) {
 					time = messageRecu[0];
 					setTimeout(
@@ -57,6 +64,21 @@
 					texteImage = messageRecu[4];
 					document.getElementById("texteIm").textContent = texteImage;
 				}
+
+				if (messageRecu[5] != audio) {
+					audio = messageRecu[5];
+					audioSrc.src = "" + audio;
+					audioSrc.volume = 0.1;
+					audioParent.load();
+					audioParent.play();
+
+					
+					setTimeout(
+						function() {
+							document.getElementById("btnMute").style.display = "block";
+							clickButton();
+						}, 1000);
+				}
 			}//FIN FONCTION AJAX
 		}
 
@@ -65,8 +87,22 @@
 			img.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 			img.width = 1920;
 			img.height = 1080;
+			audioParent.pause();
+			audioSrc.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
 			document.getElementById("texteIm").textContent = "";
 			document.getElementById("btnMute").style.display = "none";
+		}
+
+		btn.addEventListener("click", function() {
+			document.getElementById("btnMute").style.display = "none";
+			audioSrc.muted = !audioSrc.muted;
+			audioSrc.volume = 0.1;
+			audioParent.play();
+		});
+
+		// Simulate click function
+		function clickButton() {
+			btn.click();
 		}
 
 		function ChangeImage() {
