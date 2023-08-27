@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 20 juil. 2023 à 07:36
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Host: ****************
+-- Generation Time: Aug 27, 2023 at 05:04 PM
+-- Server version: 10.6.14-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,52 +18,51 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `livechat_test`
+-- Database: `********`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `image`
+-- Table structure for table `image`
 --
 
-DROP TABLE IF EXISTS `image`;
-CREATE TABLE IF NOT EXISTS `image` (
-  `url` text COLLATE utf8mb4_general_ci NOT NULL,
-  `ImageTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `ImageTexte` text COLLATE utf8mb4_general_ci NOT NULL,
-  `Width` text COLLATE utf8mb4_general_ci NOT NULL,
-  `Height` text COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `image` (
+  `url` text NOT NULL,
+  `ImageTime` text NOT NULL,
+  `ImageTexte` text NOT NULL,
+  `Width` text NOT NULL,
+  `Height` text NOT NULL,
+  `Audio` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `image`
+-- Dumping data for table `image`
 --
 
-INSERT INTO `image` (`url`, `ImageTime`, `ImageTexte`, `Width`, `Height`) VALUES
-('', '4000', ' ', '820', '860');
+INSERT INTO `image` (`url`, `ImageTime`, `ImageTexte`, `Width`, `Height`, `Audio`) VALUES
+('', '20000', ' ', '1920', '1080', '');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `video`
+-- Table structure for table `video`
 --
 
-DROP TABLE IF EXISTS `video`;
-CREATE TABLE IF NOT EXISTS `video` (
-  `VideoURL` text COLLATE utf8mb4_general_ci NOT NULL,
-  `VideoTexte` text COLLATE utf8mb4_general_ci NOT NULL,
-  `VideoTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `Height` text COLLATE utf8mb4_general_ci NOT NULL,
-  `Width` text COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `video` (
+  `VideoURL` text NOT NULL,
+  `VideoTexte` text NOT NULL,
+  `VideoTime` text NOT NULL,
+  `Height` text NOT NULL,
+  `Width` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `video`
+-- Dumping data for table `video`
 --
 
 INSERT INTO `video` (`VideoURL`, `VideoTexte`, `VideoTime`, `Height`, `Width`) VALUES
-('', ' ', '6000', '640', '360');
+('', ' ', '30000', '480', '854');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
