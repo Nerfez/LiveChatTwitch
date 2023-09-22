@@ -233,7 +233,7 @@ client.on("messageCreate", (message) => {
 
     //UPDATE de notre BDD TABLE Image
     con.query(`UPDATE image SET Audio='${""}' WHERE 1`);
-    con.query(`UPDATE image SET url = '${""}' WHERE 1`);
+    con.query(`UPDATE image SET url = '${"https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"}' WHERE 1`);
     con.query(`UPDATE image SET ImageTexte = '${" "}' WHERE 1`);
   }
   if (myMessage[0] === prefixHelp && message.channel.id === idChannelDiscord) {
