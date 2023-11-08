@@ -2,13 +2,12 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const { createConnection } = require("mysql");
 
 //LISTE DES COMMANDES A ECRIRE SUR DISCORD
-const prefixImage = "!image";
-const prefixVideo = "!video";
+const prefixTell = "!tell";
+const prefixTellHide = "!tellhide";
 const prefixFullScreen = "!fullscreen";
 const prefixStop = "!stop";
 const prefixHelp = "!help";
 const prefixAudio = "!audio";
-const prefixTexte = "!texte";
 
 const idChannelDiscord = "0003424000023312123"; //Remplacez par l'id de votre channel Discord
 const TOKEN = "QZOIJSQ8fd394jdsdSE934.3424DSoze.324dsEROP.23REkdf"; //Remplacez par le Token de votre bot discord
@@ -47,6 +46,15 @@ let con = createConnection({
   charset: "utf8mb4",
 });
 
+
+con.connect((err) => {
+  if (err) {
+    console.error("Erreur de connexion à la base de donnée:", err);
+  } else {
+    console.log("Connexion à la base de donnée établie.");
+  }
+});
+
 //Lancement du bot Discord
 client.on("ready", () => {
   client.channels.fetch(idChannelDiscord).then((channel) => {
@@ -57,7 +65,6 @@ client.on("ready", () => {
     };
     channel.send({ embeds: [exampleEmbed] });
   });
-  console.log("LiveChat Prêt");
 });
 
 //Le bot est mis sur écoute
@@ -86,107 +93,23 @@ client.on("messageCreate", (message) => {
   } else {
     //Si le message reçu correspond à l'une des commandes alors on vérifie de quelle commande il s'agit
     if (
-      myMessage[0] === prefixImage &&
-      message.channel.id === idChannelDiscord && message.attachments.first()
+      myMessage[0] === prefixTell &&
+      message.channel.id === idChannelDiscord
     ) {
-      //Si c'est une image
-      let height = message.attachments.first().height;
-      let width = message.attachments.first().width;
+      const username = message.author.username;
+      const avatar = message.author.displayAvatarURL();
 
-      //Si la condition fullscreen est active
-      if (isFullscreen === true) {
-        width = 1920;
-        height = 1080;
-      }
-      let image = message.attachments.first().url;
-      let time = myMessage[1] * 1000;
-      let texte = message.content.substring(
-        myMessage[0].length + myMessage[1].length + 2,
-        message.content.length
-      );
-      texte = checkTexte(texte);
-      if (message.attachments.first().contentType.startsWith("image")) {
-        con.connect((err) => {
-          //En cas d'erreur
-          if (err) {
-            return console.log(err);
-          }
-
-          //Si il n'y a aucune erreur
-          console.log(`Connexion à la BDD!`);
-        });
-
-        //UPDATE de notre BDD TABLE Image
-        con.query(`UPDATE image SET url='${image}' WHERE 1`);
-        con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
-        con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);
-        con.query(`UPDATE image SET Width='${width}' WHERE 1`);
-        con.query(`UPDATE image SET Height='${height}' WHERE 1`);
-      } //FIN CONDITION IMAGE
+      checkIfContainsMedia(avatar, username, message, myMessage);
     }
 
     if (
-      myMessage[0] === prefixVideo &&
-      message.channel.id === idChannelDiscord && message.attachments.first()
+      myMessage[0] === prefixTellHide &&
+      message.channel.id === idChannelDiscord
     ) {
-      //Si c'est une vidéo
-      let video = message.attachments.first().url;
-      let width = message.attachments.first().width;
-      let height = message.attachments.first().height;
+      const username = "";
+      const avatar = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 
-      //Si la condition fullscreen est active
-      if (isFullscreen === true) {
-        width = 1920;
-        height = 1080;
-      }
-      let time = myMessage[1] * 1000;
-      let texte = message.content.substring(
-        myMessage[0]?.length + myMessage[1]?.length + 2,
-        message.content.length
-      );
-      texte = checkTexte(texte);
-
-      if (message.attachments.first().contentType.startsWith("video")) {
-        con.connect((err) => {
-          //En cas d'erreur
-          if (err) {
-            return console.log(err);
-          }
-          //Si il n'y a pas d'erreur
-          console.log(`Connexion à la BDD!`);
-        });
-
-        //UPDATE de notre BDD TABLE Video
-        con.query(`UPDATE video SET VideoURL='${video}' WHERE 1`);
-        con.query(`UPDATE video SET VideoTime='${time}' WHERE 1`);
-        con.query(`UPDATE video SET VideoTexte='${texte}' WHERE 1`);
-        con.query(`UPDATE video SET Width='${width}' WHERE 1`);
-        con.query(`UPDATE video SET Height='${height}' WHERE 1`);//FIN UPDATE
-      }
-    }
-  }
-
-  if (myMessage[0] === prefixTexte && message.channel.id === idChannelDiscord) {
-    {
-      //Si c'est du texte
-      let time = myMessage[1] * 1000;
-      let texte = message.content.substring(
-        myMessage[0]?.length + myMessage[1]?.length + 2,
-        message.content.length
-      );
-      texte = checkTexte(texte);
-      con.connect((err) => {
-        //En cas d'erreur
-        if (err) {
-          return console.log(err);
-        }
-        //Si il n'y a pas d'erreur
-        console.log(`Connexion à la BDD!`);
-      });
-
-      //UPDATE de notre BDD TABLE Image
-      con.query(`UPDATE image SET ImageTime='${time}' WHERE 1`);
-      con.query(`UPDATE image SET ImageTexte='${texte}' WHERE 1`);//FIN UPDATE
+      checkIfContainsMedia(avatar, username, message, myMessage);
     }
   }
 
@@ -194,21 +117,12 @@ client.on("messageCreate", (message) => {
     {
       //Si c'est un audio
       let audio = message.attachments.first().url;
-      console.log("audio: ", audio);
       let time = myMessage[1] * 1000;
       let texte = message.content.substring(
         myMessage[0]?.length + myMessage[1]?.length + 2,
         message.content.length
       );
       texte = checkTexte(texte);
-      con.connect((err) => {
-        //En cas d'erreur
-        if (err) {
-          return console.log(err);
-        }
-        //Si il n'y a pas d'erreur
-        console.log(`Connexion à la BDD!`);
-      });
 
       //UPDATE de notre BDD TABLE Image
       con.query(`UPDATE image SET Audio='${audio}' WHERE 1`);
@@ -218,28 +132,17 @@ client.on("messageCreate", (message) => {
   }
 
   if (myMessage[0] === prefixStop && message.channel.id === idChannelDiscord) {
-    con.connect((err) => {
-      //en cas d'erreur
-      if (err) {
-        return console.log(err);
-      }
-      //Si il n'y a pas d'erreur
-      console.log(`Connexion à la BDD!`);
-    });
 
-    //UPDATE de notre BDD TABLE Video
-    con.query(`UPDATE video SET VideoURL = '${""}' WHERE 1`);
-    con.query(`UPDATE video SET VideoTexte = '${" "}' WHERE 1`);
-
-    //UPDATE de notre BDD TABLE Image
-    con.query(`UPDATE image SET Audio='${""}' WHERE 1`);
-    con.query(`UPDATE image SET url = '${"https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"}' WHERE 1`);
-    con.query(`UPDATE image SET ImageTexte = '${" "}' WHERE 1`);
+    //UPDATE de notre BDD TABLE Data
+    con.query(`UPDATE data SET url = '${""}' WHERE 1`);
+    con.query(`UPDATE data SET Texte = '${" "}' WHERE 1`);
+    con.query(`UPDATE data SET Audio='${""}' WHERE 1`);
+    con.query(`UPDATE data SET url = '${"https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"}' WHERE 1`);
   }
   if (myMessage[0] === prefixHelp && message.channel.id === idChannelDiscord) {
     let exampleEmbed = {
       title:
-        "Liste des commandes : \n!video {time} {message} - envoi d'une video\n!image {time} {message} - envoi d'une image\n!texte {time} {message} - envoi d'un message\n!fullscreen - activer/désactiver\n!stop - retirer l'image/vidéo/texte à l'écran",
+        "Liste des commandes : \n!tell {time} {message} - envoi d'une video ou image en affichant son avatar et pseudo\n!tellhide {time} {message} - pareil mais on cache l identité\n!fullscreen - activer/désactiver\n!stop - retirer l'image/vidéo/texte à l'écran",
       color: 0xffffff,
     };
     message.channel.send({ embeds: [exampleEmbed] });
@@ -291,6 +194,109 @@ function isPrefixValid(message) {
       return true;
     default:
       return false;
+  }
+}
+
+/*
+ * Permet de vérifier si le message entré dans le channel discord commence par l'une de nos commandes
+ *
+ * @param message Le message reçu sur le channel discord
+ * @return True si le message commence par une commande
+ */
+function isPrefixValid(message) {
+  switch (message) {
+    case prefixTell:
+      return true;
+    case prefixTellHide:
+      return true;
+    case prefixHelp:
+      return true;
+    case prefixStop:
+      return true;
+    case prefixFullScreen:
+      return true;
+    case prefixAudio:
+      return true;
+    default:
+      return false;
+  }
+}
+
+/*
+ * Permet de vérifier si le message contient un média
+ *
+ * @param avatar image, username String pseudo
+ */
+function checkIfContainsMedia(avatar, username, message, myMessage){
+  if(message.attachments.first()){      
+    //Si c'est une image
+    let height = message.attachments.first().height;
+    let width = message.attachments.first().width;
+
+    //Si la condition fullscreen est active
+    if (isFullscreen === true) {
+      width = 1920;
+      height = 1080;
+    }
+    let image = message.attachments.first().url;
+    let time = myMessage[1] * 1000;
+    let texte = message.content.substring(
+      myMessage[0].length + myMessage[1].length + 2,
+      message.content.length
+    );
+    texte = checkTexte(texte);
+    if (message.attachments.first().contentType.startsWith("image")) {
+
+      //UPDATE de notre BDD TABLE data
+      con.query(`UPDATE data SET url='${image}' WHERE 1`);
+      con.query(`UPDATE data SET Time='${time}' WHERE 1`);
+      con.query(`UPDATE data SET Texte='${texte}' WHERE 1`);
+      con.query(`UPDATE data SET Width='${width}' WHERE 1`);
+      con.query(`UPDATE data SET Height='${height}' WHERE 1`);
+      con.query(`UPDATE data SET avatar='${avatar}' WHERE 1`);
+      con.query(`UPDATE data SET username='${username}' WHERE 1`);
+
+    } //FIN CONDITION IMAGE
+    else if(message.attachments.first().contentType.startsWith("video")){
+      //Si c'est une vidéo
+    let video = message.attachments.first().url;
+    let width = message.attachments.first().width;
+    let height = message.attachments.first().height;
+
+    //Si la condition fullscreen est active
+    if (isFullscreen === true) {
+      width = 1920;
+      height = 1080;
+    }
+    let time = myMessage[1] * 1000;
+    let texte = message.content.substring(
+      myMessage[0]?.length + myMessage[1]?.length + 2,
+      message.content.length
+    );
+    texte = checkTexte(texte);
+
+      //UPDATE de notre BDD TABLE data
+      con.query(`UPDATE data SET url='${video}' WHERE 1`);
+      con.query(`UPDATE data SET Time='${time}' WHERE 1`);
+      con.query(`UPDATE data SET Texte='${texte}' WHERE 1`);
+      con.query(`UPDATE data SET Width='${width}' WHERE 1`);
+      con.query(`UPDATE data SET Height='${height}' WHERE 1`);
+      con.query(`UPDATE data SET avatar='${avatar}' WHERE 1`);
+      con.query(`UPDATE data SET username='${username}' WHERE 1`);//FIN UPDATE
+    }
+  } else {
+    let time = myMessage[1] * 1000;
+    let texte = message.content.substring(
+      myMessage[0]?.length + myMessage[1]?.length + 2,
+      message.content.length
+    );
+    texte = checkTexte(texte);
+
+      //UPDATE de notre BDD TABLE data
+      con.query(`UPDATE data SET Time='${time}' WHERE 1`);
+      con.query(`UPDATE data SET Texte='${texte}' WHERE 1`);
+      con.query(`UPDATE data SET avatar='${avatar}' WHERE 1`);
+      con.query(`UPDATE data SET username='${username}' WHERE 1`);
   }
 }
 
