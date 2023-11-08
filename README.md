@@ -17,18 +17,10 @@ Pour faire fonctionner le projet il vous faudra des connaissances en :
 ### 🔧 Configuration
 
 Pour faire fonctionner LiveChat, il faut d'abord télécharger le [zip](https://github.com/Nerfez/LiveChatTwitch/archive/refs/heads/main.zip) du projet.
-Pensez à extraire le fichier zip puis dirigez vous dans le dossier Discord où figure le fichier ```index.js``` depuis votre terminal et entrez les commandes suivantes :
+Pensez à extraire le fichier zip puis dirigez vous dans le dossier Discord où figure le fichier ```index.js``` depuis votre terminal et entrez la commande suivante :
 
 ```nodejs
-npm init
-```
-
-```nodejs
-npm i discord.js
-```
-
-```nodejs
-npm i mysql
+npm i
 ```
 
 Effectuez tous les changements nécessaires (token, mot de passe, nom de base de donnée, identifiant de channel etc...). Si vous n'avez pas idée de ce que représente un token ou
