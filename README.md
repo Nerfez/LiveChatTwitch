@@ -27,53 +27,44 @@ Effectuez tous les changements nécessaires (token, mot de passe, nom de base de
 si vous n'êtes pas à l'aise avec la création d'un bot discord, je vous renvoie à cette vidéo qui explique parfaitement la création d'un bot discord : 
 https://www.youtube.com/watch?v=IErYPx-meD4&
 
-Puis lancer le fichier ```index.js``` depuis visual studio code. (Run -> Start Debugging) Si vous voulez plus de libertés et lancer le fichier depuis cmd au lieu de passer à chaque fois par visual studio, puis entrez la commande `node .`. Si vous ajoutez dans le fichier `package.json` dans les scripts :
+Puis lancer le fichier ```index.js``` avec la commande suivante dans votre terminal :
 
 ```nodejs
-"start": "node ."
+node index.js
 ```
 
-Vous pourrez alors lancer votre fichier avec la commande ```npm run start```
+Maintenant, il vous faut hébergez le site avec les pages ```.html, .php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service de 120j).
 
-Maintenant, il vous faut hébergez le site avec les pages ```.php et .css```, à titre personnel j'utilise alwaysdata qui permet d'héberger gratuitement (nécéssite de se créer un compte, vous aurez des mails de rappel de la part de alwaysdata indiquant si votre compte arrive à expiration, auquel cas il suffira de se connecter pour prolonger la durée de mise en service de 120j).
+Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 1 table ```data``` soit :
 
-Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MySQL, ajouter une nouvelle base avec un utilisateur disposant de tous les droits, créez 2 tables soit :
+| url     | Texte | Time | Width | Height | Audio | avatar | username|
+|-----------------|--------|---------|---------|---------|--|-------|-----|
+|                 |        |         |          |         |  |  | |
 
-| url     | ImageTexte | ImageTime | Width | Height | Audio |
-|-----------------|--------|---------|---------|---------|--|
-|                 |        |         |          |         |  |
 
-pour la table `Image`
-
-| VideoURL     | VideoTexte | VideoTime | Width | Height |
-|-----------------|--------|---------|---------|---------|
-|                 |        |         |         |         |
-
-pour la table `Video`
-
-Si vous le souhaitez, vous pouvez importer directement le fichier `livechat_test.sql` à votre base, celà permettra d'avoir les 2 tables identiques avec le code. (mais naturellement pas le même host, dbName, user, pass)
+Si vous le souhaitez, vous pouvez importer directement le fichier `livechat_test.sql` à votre base, celà permettra d'avoir la table identique avec le code. (mais naturellement pas le même host, dbName, user, pass)
 
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
 d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
 
 ### 🔧 Commandes
 
-- Les commandes à exécuter sur discord pour une image :
+- Les commandes à exécuter sur discord pour afficher du texte, image ou vidéo avec votre avatar et pseudo affiché :
 
 ```discord
-!image {Nombre} {text}
+!tell {Nombre} {text}
 ```
-Par exemple : ```!image 13 voici mon texte``` ou encore ```!image 6```
+Par exemple : ```!tell 13 voici mon texte``` ou encore ```!tell 6```
 
 
-- Les commandes à exécuter sur discord pour une vidéo :
+- Les commandes à exécuter sur discord pour afficher du texte, image ou vidéo **MAIS** sans votre avatar et pseudo affiché :
 
 ```discord
-!video {Nombre} {text}
+!tellhide {Nombre} {text}
 ```
-Par exemple : ```!video 25 voicidutexte``` ou encore ```!video 1```
+Par exemple : ```!tellhide 25 voicidutexte``` ou encore ```!tellhide 1```
 
-- Les commandes à exécuter sur discord pour le fullscreen :
+- La commande à exécuter sur discord pour le fullscreen :
 
 ```discord
 !fullscreen
@@ -86,13 +77,6 @@ Cela permet d'activer / désactiver l'envoi d'image en plein écran, autrement l
 !audio {Nombre} {text}
 ```
 Cela permet d'envoyer un audio mp3, par exemple : ```!audio 11 voicidutexte``` ou encore ```!audio 7```
-
-- Les commandes à exécuter sur discord pour du texte :
-
-```discord
-!texte {Nombre} {text}
-```
-Cela permet d'envoyer un texte, par exemple : ```!texte 5 voicidutexte``` ou encore ```!texte 12```
 
 - Enfin, voici la commande à exécuter pour retirer du texte ou une url d'image / vidéo qui ne disparaît pas de l'écran :
 
