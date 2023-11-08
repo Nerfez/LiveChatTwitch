@@ -53,7 +53,6 @@
 					img.width = width;
 					height = messageRecu[2];
 					img.height = height;
-					document.getElementById("texteIm").textContent = texte;
 					avatar = messageRecu[6];
 					imgAvatar.src = "" + avatar;
 					username = messageRecu[7];
@@ -61,6 +60,7 @@
 					urlRecu = messageRecu[3];
 					img.src = "" + urlRecu;
 					texte = messageRecu[4];
+					document.getElementById("texteIm").textContent = texte;
 				}
 
 				if (messageRecu[5] != audio) {
