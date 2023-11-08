@@ -9,24 +9,29 @@
 </head>
 
 <body onload="ChangeVideo()">
-	<h1 id="texteVid">SALUT A TOUS</h1>
+	<h1 id="texteAvatar" class="avatarTexte"></h1>
+	<img id="avatar" class="avatarImg" width="150" height="150" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
+	<h1 id="texteVid" class="contentTexte">SALUT A TOUS</h1>
 	<video muted id="video" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077597865058242600/srdfgsdehuderhj.mp4">
 	</video>
 	<input id="btnMute" type="button" value="Unmute">
 	<script>
 		const video = document.getElementById("video");
-		var btn = document.querySelector('input');
-		var texteVideo = "";
-		var time = 20000;
-		var height = 1080;
-		var width = 1920;
-		var urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077597865058242600/srdfgsdehuderhj.mp4";
+		let btn = document.querySelector('input');
+		let texteVideo = "";
+		let time = 20000;
+		let height = 1080;
+		let width = 1920;
+		let avatar = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+		let username = "";
+		const imgAvatar = document.getElementById("avatar");
+		let urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077597865058242600/srdfgsdehuderhj.mp4";
 		
 		function Database() {
-			var ajax = new XMLHttpRequest();
-			var method = "GET";
-			var url = "getValue.php";
-			var asynchronous = true;
+			let ajax = new XMLHttpRequest();
+			let method = "GET";
+			let url = "../getValue.php";
+			let asynchronous = true;
 
 			ajax.open(method, url, asynchronous);
 			ajax.send();
@@ -43,15 +48,19 @@
 				height = messageRecu[2];
 				video.height = height;
 				urlRecu = messageRecu[3];
-					video.src = "" + urlRecu;
-					video.load();
-					video.play();
+				avatar = messageRecu[6];
+				imgAvatar.src = "" + avatar;
+				username = messageRecu[7];
+				document.getElementById("texteAvatar").textContent = username;
+				video.src = "" + urlRecu;
+				video.load();
+				video.play();
 
-					setTimeout(
-						function() {
-							document.getElementById("btnMute").style.display = "block";
-							clickButton();
-						}, 1000);
+				setTimeout(
+					function() {
+						document.getElementById("btnMute").style.display = "block";
+						clickButton();
+					}, 1000);
 					texteVideo = messageRecu[4];
 					document.getElementById("texteVid").textContent = texteVideo;
 				}
@@ -59,10 +68,11 @@
 		}
 
 		function Clear() {
-			console.log("clear");
 			video.src = "";
 			document.getElementById("texteVid").textContent = "";
 			document.getElementById("btnMute").style.display = "none";
+			document.getElementById("texteAvatar").textContent = "";
+			imgAvatar.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 		}
 
 		btn.addEventListener("click", function() {
