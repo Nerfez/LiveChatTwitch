@@ -9,22 +9,27 @@
 </head>
 
 <body onload="ChangeImage()">
-	<h1 id="texteIm">SALUT A TOUS</h1>
-	<img id="message" width="1920" height="1080" src=" https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
+	<h1 id="texteAvatar" class="avatarTexte"></h1>
+	<img id="avatar" class="avatarImg" width="150" height="150" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
+	<h1 id="texteIm" class="contentTexte">SALUT A TOUS</h1>
+	<img id="message" class="contentImg" width="1920" height="1080" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
 	<audio id="audioParent" hidden>
 		<source id="audioChild" src="https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3" type="audio/mpeg">
 	  </audio>
 	  <input id="btnMute" type="button" value="Unmute">
 	<script>
-		var texteImage = "";
+		var texte = "";
 		var time = 20000;
-		var btn = document.querySelector('input');
 		var width = 1920;
 		var height = 1080;
 		var audio = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
-		const img = document.getElementById("message");
+		var btn = document.querySelector('input');
 		const audioParent = document.getElementById("audioParent");
 		const audioSrc = document.getElementById("audioChild");
+		let avatar = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+		let username = "";
+		const img = document.getElementById("message");
+		const imgAvatar = document.getElementById("avatar");
 		var urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 
 		function Database() {
@@ -37,32 +42,25 @@
 			ajax.send();
 			ajax.onload = function() {
 				let messageRecu = this.responseText.split("$");
-				if (messageRecu[0] != time) {
+				console.log("message:",messageRecu);
+				if (messageRecu[3] != urlRecu) {
 					time = messageRecu[0];
 					setTimeout(
 						function() {
 							Clear();
 						}, time);
-				}
-
-				if (messageRecu[1] != width) {
 					width = messageRecu[1];
 					img.width = width;
-				}
-
-				if (messageRecu[2] != height) {
 					height = messageRecu[2];
 					img.height = height;
-				}
-
-				if (messageRecu[3] != urlRecu) {
+					document.getElementById("texteIm").textContent = texte;
+					avatar = messageRecu[6];
+					imgAvatar.src = "" + avatar;
+					username = messageRecu[7];
+					document.getElementById("texteAvatar").textContent = username;
 					urlRecu = messageRecu[3];
 					img.src = "" + urlRecu;
-				}
-				
-				if (messageRecu[4] != texteImage) {
-					texteImage = messageRecu[4];
-					document.getElementById("texteIm").textContent = texteImage;
+					texte = messageRecu[4];
 				}
 
 				if (messageRecu[5] != audio) {
@@ -83,14 +81,15 @@
 		}
 
 		function Clear() {
-			console.log("clear");
 			img.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 			img.width = 1920;
 			img.height = 1080;
-			audioParent.pause();
-			audioSrc.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
+			document.getElementById("texteAvatar").textContent = "";
 			document.getElementById("texteIm").textContent = "";
 			document.getElementById("btnMute").style.display = "none";
+			audioParent.pause();
+			audioSrc.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
+			imgAvatar.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 		}
 
 		btn.addEventListener("click", function() {
