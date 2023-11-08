@@ -37,7 +37,7 @@
 			ajax.send();
 			ajax.onload = function() {
 				let messageRecu = this.responseText.split("$");
-				if (messageRecu[3] != urlRecu) {
+				if (messageRecu[3] != urlRecu || messageRecu[4] != texte) {
 					time = messageRecu[0];
 					setTimeout(
 						function() {
