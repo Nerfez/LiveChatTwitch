@@ -45,7 +45,7 @@ Depuis AlwaysData, vous avez la possibilité de créer votre Base de donnée MyS
 Si vous le souhaitez, vous pouvez importer directement le fichier `livechat_test.sql` à votre base, celà permettra d'avoir la table identique avec le code. (mais naturellement pas le même host, dbName, user, pass)
 
 Si tout cela est fait et vous avez bien remplacer chaque identifiants/mdp etc correspondant à vos propre identifants alors ouvrez Streamlabs et ajoutez 2 nouvelles sources navigateur, entrez pour chacune
-d'entre elle l'url correspondant ```https://*****index.php``` pour l'image et pour la vidéo ```https://*****/Video/index.php``` et cochez "raffraichir le navigateur lorsque la source est active".
+d'entre elle l'url correspondant ```https://*****index.html``` pour l'image et pour la vidéo ```https://*****/Video/index.html``` et cochez "raffraichir le navigateur lorsque la source est active".
 
 ### 🔧 Commandes
 
