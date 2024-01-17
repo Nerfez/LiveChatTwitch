@@ -1,116 +1,142 @@
 <!DOCTYPE html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>LiveChat Image - Zefren</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
-	<title>LiveChat Image - Zefren</title>
-</head>
+  <body onload="initializePage()">
+    <h1 id="texteAvatar" class="avatarTexte"></h1>
+    <img
+      id="avatar"
+      class="avatarImg"
+      width="150"
+      height="150"
+      src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"
+    />
+    <h1 id="texteIm" class="contentTexte"></h1>
+    <img
+      id="message"
+      class="contentImg"
+      width="1920"
+      height="1080"
+      src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"
+    />
+    <audio id="audioParent" hidden>
+      <source id="audioChild" src="" type="audio/mpeg" />
+    </audio>
+    <input id="btnMute" type="button" value="Unmute" style="display: none" />
 
-<body onload="ChangeImage()">
-	<h1 id="texteAvatar" class="avatarTexte"></h1>
-	<img id="avatar" class="avatarImg" width="150" height="150" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
-	<h1 id="texteIm" class="contentTexte">SALUT A TOUS</h1>
-	<img id="message" class="contentImg" width="1920" height="1080" src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png">
-	<audio id="audioParent" hidden>
-		<source id="audioChild" src="https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3" type="audio/mpeg">
-	  </audio>
-	  <input id="btnMute" type="button" value="Unmute">
-	<script>
-		var texte = "";
-		var time = 20000;
-		var width = 1920;
-		var height = 1080;
-		var audio = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
-		var btn = document.querySelector('input');
-		const audioParent = document.getElementById("audioParent");
-		const audioSrc = document.getElementById("audioChild");
-		let avatar = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
-		let username = "";
-		const img = document.getElementById("message");
-		const imgAvatar = document.getElementById("avatar");
-		var urlRecu = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+    <script>
+      const intervalDuration = 7000;
+      let urlRecu =
+        "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
 
-		function Database() {
-			var ajax = new XMLHttpRequest();
-			var method = "GET";
-			var url = "getValue.php";
-			var asynchronous = true;
+      const audioParent = document.getElementById("audioParent");
+      const audioSrc = document.getElementById("audioChild");
+      const btn = document.getElementById("btnMute");
 
-			ajax.open(method, url, asynchronous);
-			ajax.send();
-			ajax.onload = function() {
-				let messageRecu = this.responseText.split("$");
-				console.log("message:",messageRecu);
-				if (messageRecu[3] != urlRecu || messageRecu[4] != texte) {
-					time = messageRecu[0];
-					setTimeout(
-						function() {
-							Clear();
-						}, time);
-					width = messageRecu[1];
-					img.width = width;
-					height = messageRecu[2];
-					img.height = height;
-					avatar = messageRecu[6];
-					imgAvatar.src = "" + avatar;
-					username = messageRecu[7];
-					document.getElementById("texteAvatar").textContent = username;
-					urlRecu = messageRecu[3];
-					img.src = "" + urlRecu;
-					texte = messageRecu[4];
-					document.getElementById("texteIm").textContent = texte;
-				}
+      function initializePage() {
+        setInterval(fetchDataFromDatabase, intervalDuration);
+        btn.addEventListener("click", toggleMute);
+      }
 
-				if (messageRecu[5] != audio) {
-					audio = messageRecu[5];
-					audioSrc.src = "" + audio;
-					audioSrc.volume = 0.1;
-					audioParent.load();
-					audioParent.play();
+      function fetchDataFromDatabase() {
+        const ajax = new XMLHttpRequest();
+        const method = "GET";
+        const url = "getValue.php";
+        const asynchronous = true;
 
-					
-					setTimeout(
-						function() {
-							document.getElementById("btnMute").style.display = "block";
-							clickButton();
-						}, 1000);
-				}
-			}//FIN FONCTION AJAX
-		}
+        ajax.open(method, url, asynchronous);
+        ajax.send();
 
-		function Clear() {
-			img.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
-			img.width = 1920;
-			img.height = 1080;
-			document.getElementById("texteAvatar").textContent = "";
-			document.getElementById("texteIm").textContent = "";
-			document.getElementById("btnMute").style.display = "none";
-			audioParent.pause();
-			audioSrc.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1145355179592519810/epic.mp3";
-			imgAvatar.src = "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
-		}
+        ajax.onload = function () {
+          const messageRecu = this.responseText.split("$");
 
-		btn.addEventListener("click", function() {
-			document.getElementById("btnMute").style.display = "none";
-			audioSrc.muted = !audioSrc.muted;
-			audioSrc.volume = 0.1;
-			audioParent.play();
-		});
+          if (messageRecu[3] !== urlRecu && !messageRecu[3].includes(".mp4")) {
+            urlRecu = messageRecu[3];
+            updateUI(messageRecu);
+          }
 
-		// Simulate click function
-		function clickButton() {
-			btn.click();
-		}
+          if (messageRecu[5] !== audioSrc.src) {
+            updateAudio(messageRecu[5]);
+          }
+        };
+      }
 
-		function ChangeImage() {
+      function updateUI(messageRecu) {
+        const [time, width, height, , texte, , newAvatar, newUsername] =
+          messageRecu;
 
-			const interval = setInterval(function() {
-				Database();
-			}, 7000);
-		}
-	</script>
-</body>
+        setTimeout(() => {
+          clearUI();
+        }, time);
 
+        const img = document.getElementById("message");
+        img.width = width;
+        img.height = height;
+        img.src = urlRecu;
+
+        const imgAvatar = document.getElementById("avatar");
+        imgAvatar.src = newAvatar;
+
+        const textAvatar = document.getElementById("texteAvatar");
+        textAvatar.textContent = newUsername;
+
+        const textIm = document.getElementById("texteIm");
+        textIm.textContent = texte;
+      }
+
+      function clearUI() {
+        const img = document.getElementById("message");
+        img.src =
+          "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+        img.width = 1920;
+        img.height = 1080;
+
+        document.getElementById("texteAvatar").textContent = "";
+        document.getElementById("avatar").src =
+          "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
+
+        document.getElementById("texteIm").textContent = "";
+        btn.style.display = "none";
+
+        audioParent.pause();
+        audioSrc.src = "";
+
+        const ajax = new XMLHttpRequest();
+        const method = "GET";
+        const url = "deleteValue.php";
+        const asynchronous = true;
+
+        ajax.open(method, url, asynchronous);
+        ajax.send();
+
+        ajax.onload = function () {
+          console.log("suppression");
+        };
+      }
+
+      function updateAudio(newAudioSrc) {
+        audioSrc.src = newAudioSrc;
+        audioSrc.volume = 0.1;
+        audioParent.load();
+        audioParent.play();
+
+        setTimeout(() => {
+          btn.style.display = "block";
+          toggleMute();
+        }, 1000);
+      }
+
+      function toggleMute() {
+        btn.style.display = "none";
+        audioSrc.muted = !audioSrc.muted;
+        audioSrc.volume = 0.1;
+        audioParent.play();
+      }
+    </script>
+  </body>
 </html>
