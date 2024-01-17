@@ -6,6 +6,8 @@ Lorsque l'on envoi une image/vidéo dans un channel discord, elle s'affiche sur 
 Je rappelle que c'est un projet que j'ai fais tout seul sur mon temps libre et que si à tout moment l'un des membres me contacte pour supprimer ce projet je le ferai, j'ai décidé de partager mon code
 uniquement car je pense que c'est un outil très marrant entre amis.
 
+Type de vidéos à envoyer : mp4 obligtoirement, pour les images les jfef, png, jpeg, jpg fonctionnent et gif aussi. Si vous souhaitez ajouter des conditions pour autoriser d'autres format de vidéos, changez les conditions dans le fichier `index.html`
+
 Pour faire fonctionner le projet il vous faudra des connaissances en :
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()
