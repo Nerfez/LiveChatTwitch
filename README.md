@@ -114,4 +114,4 @@ Ou à me contacter sur twitter : @Zefren_ (sauf si c'est pour que je vous setup 
 Vérifiez bien que tous vos fichiers contiennent les bons identifiants, mdp c'est 90% du temps dû à ça.
 Par ailleurs, vérifiez que vous n'avez pas de VPN actif ou de proxy, celà engendre des problèmes d'update à la base de donnée.
 
-En ce qui concerne le projet en lui-même, vous pouvez tout reprendre pour l'améliorer et en faire ce que vous voulez. J'ai réussi à reproduire le système de file d'attente mais pour l'instant les images et les vidéos sont dissociés, c'est à dire qu'en théorie on peut envoyer une vidéo ET une image en même temps, je veillerai dans une prochaine MAJ de corriger ça.
+En ce qui concerne le projet en lui-même, vous pouvez tout reprendre pour l'améliorer et en faire ce que vous voulez.
