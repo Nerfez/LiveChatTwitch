@@ -24,12 +24,14 @@
       height="1080"
       src="https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png"
     />
+    <video muted id="video" src=""></video>
     <audio id="audioParent" hidden>
       <source id="audioChild" src="" type="audio/mpeg" />
     </audio>
     <input id="btnMute" type="button" value="Unmute" style="display: none" />
 
     <script>
+      const video = document.getElementById("video");
       const intervalDuration = 7000;
       let urlRecu =
         "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
@@ -54,10 +56,21 @@
 
         ajax.onload = function () {
           const messageRecu = this.responseText.split("$");
+          console.log(messageRecu);
+          if (!messageRecu[3] && !messageRecu[5]) {
+            return;
+          }
+
+          console.log(urlRecu, messageRecu[3], messageRecu[3].includes(".mp4"));
 
           if (messageRecu[3] !== urlRecu && !messageRecu[3].includes(".mp4")) {
             urlRecu = messageRecu[3];
             updateUI(messageRecu);
+          }
+
+          if (messageRecu[3] !== urlRecu && messageRecu[3].includes(".mp4")) {
+            urlRecu = messageRecu[3];
+            updateVideoUI(messageRecu);
           }
 
           if (messageRecu[5] !== audioSrc.src) {
@@ -69,7 +82,7 @@
       function updateUI(messageRecu) {
         const [time, width, height, , texte, , newAvatar, newUsername] =
           messageRecu;
-
+        console.log("image ", messageRecu);
         setTimeout(() => {
           clearUI();
         }, time);
@@ -89,7 +102,36 @@
         textIm.textContent = texte;
       }
 
+      function updateVideoUI(messageRecu) {
+        time = messageRecu[0];
+        console.log("video ", messageRecu);
+
+        setTimeout(() => {
+          clearUI();
+        }, time);
+
+        video.width = messageRecu[1];
+        video.height = messageRecu[2];
+
+        const imgAvatar = document.getElementById("avatar");
+        imgAvatar.src = messageRecu[6];
+
+        document.getElementById("texteAvatar").textContent = messageRecu[7];
+
+        video.src = urlRecu;
+
+        setTimeout(() => {
+          document.getElementById("btnMute").style.display = "block";
+          clickButton();
+          video.load();
+          video.play();
+        }, 1000);
+
+        document.getElementById("texteIm").textContent = messageRecu[4];
+      }
+
       function clearUI() {
+        video.src = "";
         const img = document.getElementById("message");
         img.src =
           "https://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png";
@@ -133,9 +175,20 @@
 
       function toggleMute() {
         btn.style.display = "none";
-        audioSrc.muted = !audioSrc.muted;
+        audioSrc.muted = false;
         audioSrc.volume = 0.1;
         audioParent.play();
+      }
+
+      btn.addEventListener("click", function () {
+        document.getElementById("btnMute").style.display = "none";
+        video.muted = false;
+        video.volume = 0.1;
+        video.play();
+      });
+
+      function clickButton() {
+        btn.click();
       }
     </script>
   </body>
