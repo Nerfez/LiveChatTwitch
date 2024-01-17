@@ -56,12 +56,9 @@
 
         ajax.onload = function () {
           const messageRecu = this.responseText.split("$");
-          console.log(messageRecu);
-          if (!messageRecu[3] && !messageRecu[5]) {
+          if (!messageRecu[3] && !messageRecu[5] || urlRecu != "") {
             return;
           }
-
-          console.log(urlRecu, messageRecu[3], messageRecu[3].includes(".mp4"));
 
           if (messageRecu[3] !== urlRecu && !messageRecu[3].includes(".mp4")) {
             urlRecu = messageRecu[3];
@@ -82,7 +79,6 @@
       function updateUI(messageRecu) {
         const [time, width, height, , texte, , newAvatar, newUsername] =
           messageRecu;
-        console.log("image ", messageRecu);
         setTimeout(() => {
           clearUI();
         }, time);
@@ -104,7 +100,6 @@
 
       function updateVideoUI(messageRecu) {
         time = messageRecu[0];
-        console.log("video ", messageRecu);
 
         setTimeout(() => {
           clearUI();
@@ -131,6 +126,7 @@
       }
 
       function clearUI() {
+		urlRecu = "";
         video.src = "";
         const img = document.getElementById("message");
         img.src =
