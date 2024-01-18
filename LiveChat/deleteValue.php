@@ -5,7 +5,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=livechat_test', "root", ""); //A rem
 //root par votre username bdd
 //le dernier parametre "" par votre mot de passe bdd
 
-$sql = 'DELETE FROM data LIMIT 1'; //on supprime la video / photo en cours
+$sql = "DELETE FROM data ORDER BY CreatedTime LIMIT 1"; //on supprime la video / photo en cours
 
 $statement = $bdd->prepare($sql);
 $statement->execute();
