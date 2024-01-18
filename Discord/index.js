@@ -104,7 +104,10 @@ function handleCommands(myMessage, message) {
   }
 
   if (myMessage[0] === prefixStop && message.channel.id === idChannelDiscord) {
-    con.query(`DELETE FROM data LIMIT 1`);
+    con.query(`DELETE FROM data
+    ORDER BY CreatedTime
+    LIMIT 1
+    `);
   }
 
   if (
@@ -185,9 +188,10 @@ function handleAudioCommand(message, myMessage) {
       message.content.length
     );
     texte = checkTexte(texte);
-
+    createdTime = new Date();
+    const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
     con.query(
-      `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar) VALUES ('','${time}','${texte}','','','${audio}','','')`
+      `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','${audio}','','', '${formattedCreatedTime}')`
     );
   }
 }
@@ -274,8 +278,10 @@ function handleImageInsertion(
   username,
   avatar
 ) {
+  createdTime = new Date();
+  const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar) VALUES ('${imageURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${imageURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${formattedCreatedTime}')`
   );
 }
 
@@ -288,8 +294,10 @@ function handleVideoInsertion(
   username,
   avatar
 ) {
+  createdTime = new Date();
+  const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar) VALUES ('${videoURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${videoURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${formattedCreatedTime}')`
   );
 }
 
@@ -301,9 +309,9 @@ function handleTextOnlyMessage(message, myMessage, avatar, username) {
   );
   texte = checkTexte(texte);
   console.log("affichage de :", time, texte, avatar, username);
-
+  createdTime = new Date();
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar) VALUES ('','${time}','${texte}','','','','${username}','${avatar}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','','${username}','${avatar}', '${createdTime}')`
   );
 }
 
