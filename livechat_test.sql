@@ -35,7 +35,8 @@ CREATE TABLE `data` (
   `Height` text NOT NULL,
   `Audio` text NOT NULL,
   `username` text NOT NULL,
-  `avatar` text NOT NULL
+  `avatar` text NOT NULL,
+  `CreatedTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
