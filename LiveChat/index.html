@@ -59,7 +59,8 @@
             return;
           }
 
-          if (messageRecu[3] !== urlRecu && !messageRecu[3].includes(".mp4")) {
+          if (messageRecu[3] !== urlRecu && !messageRecu[3].includes(".mp4") ||
+            (messageRecu[3] === urlRecu && messageRecu[4] !== "")) {
             urlRecu = messageRecu[3];
             updateUI(messageRecu);
           }
