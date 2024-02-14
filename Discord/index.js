@@ -311,7 +311,7 @@ function handleTextOnlyMessage(message, myMessage, avatar, username) {
   console.log("affichage de :", time, texte, avatar, username);
   createdTime = formatDateForDatabase(new Date());
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','','${username}','${avatar}', '${createdTime}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('ttps://cdn.discordapp.com/attachments/1076908168132694048/1077592007175831562/vide.png','${time}','${texte}','','','','${username}','${avatar}', '${createdTime}')`
   );
 }
 
