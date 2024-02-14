@@ -188,10 +188,10 @@ function handleAudioCommand(message, myMessage) {
       message.content.length
     );
     texte = checkTexte(texte);
-    createdTime = new Date();
-    const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
+  createdTime = formatDateForDatabase(new Date());
+  console.log("affichage de :", time, texte, audio);
     con.query(
-      `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','${audio}','','', '${formattedCreatedTime}')`
+      `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','${audio}','','', '${createdTime}')`
     );
   }
 }
@@ -278,10 +278,10 @@ function handleImageInsertion(
   username,
   avatar
 ) {
-  createdTime = new Date();
-  const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
+  createdTime = formatDateForDatabase(new Date());
+  console.log("affichage de :", time, texte, avatar, username);
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${imageURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${formattedCreatedTime}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${imageURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${createdTime}')`
   );
 }
 
@@ -294,10 +294,10 @@ function handleVideoInsertion(
   username,
   avatar
 ) {
-  createdTime = new Date();
-  const formattedCreatedTime = createdTime.toISOString().slice(0, 19).replace('T', ' ');
+  createdTime = formatDateForDatabase(new Date());
+  console.log("affichage de :", time, texte, avatar, username);
   con.query(
-    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${videoURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${formattedCreatedTime}')`
+    `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('${videoURL}','${time}','${texte}','${width}','${height}','','${username}','${avatar}', '${createdTime}')`
   );
 }
 
@@ -309,10 +309,24 @@ function handleTextOnlyMessage(message, myMessage, avatar, username) {
   );
   texte = checkTexte(texte);
   console.log("affichage de :", time, texte, avatar, username);
-  createdTime = new Date();
+  createdTime = formatDateForDatabase(new Date());
   con.query(
     `INSERT INTO data (url, Time, Texte, Width, Height, Audio, username, avatar, CreatedTime) VALUES ('','${time}','${texte}','','','','${username}','${avatar}', '${createdTime}')`
   );
+}
+
+function formatDateForDatabase(date) {
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+  return formattedDate;
 }
 
 /*
@@ -325,7 +339,7 @@ function checkTexte(message) {
 /*
  * Connexion du bot discord grâce au Token
  * C'est un faux token donc ça ne marchera pas, créez votre propre bot discord
- * et pensez à bien remplacer par votre Token en haut du fichier (ligne 12)
+ * et pensez à bien remplacer par votre Token en haut du fichier (ligne 13)
  */
 client.login(TOKEN);
 
