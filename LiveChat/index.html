@@ -158,6 +158,10 @@
       }
 
       function updateAudio(newAudioSrc) {
+        setTimeout(() => {
+          clearUI();
+        }, time);
+	      
         audioSrc.src = newAudioSrc;
         audioSrc.volume = 0.1;
         audioParent.load();
