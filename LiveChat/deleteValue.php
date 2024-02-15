@@ -5,7 +5,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=livechat_test', "root", ""); //A rem
 //root par votre username bdd
 //le dernier parametre "" par votre mot de passe bdd
 
-$$sql = "DELETE FROM data 
+$sql = "DELETE FROM data 
 WHERE CreatedTime = (
     SELECT CreatedTime
     FROM data
