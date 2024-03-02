@@ -5,13 +5,14 @@ $bdd = new PDO('mysql:host=localhost;dbname=livechat_test', "root", ""); //A rem
 //root par votre username bdd
 //le dernier parametre "" par votre mot de passe bdd
 
-$sql = "DELETE FROM data 
-WHERE CreatedTime = (
-    SELECT CreatedTime
-    FROM data
-    ORDER BY CreatedTime
-    LIMIT 1
-);"; //on supprime la video / photo la plus ancienne (celle en cours)
+$sql = "WITH cte AS (
+            SELECT CreatedTime
+            FROM data
+            ORDER BY CreatedTime
+            LIMIT 1
+        )
+        DELETE FROM data
+        WHERE CreatedTime = (SELECT CreatedTime FROM cte);"; //on supprime la video / photo la plus ancienne (celle en cours)
 
 $statement = $bdd->prepare($sql);
 $statement->execute();
