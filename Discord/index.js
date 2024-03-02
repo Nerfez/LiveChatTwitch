@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const { createConnection } = require("mysql");
+const { createConnection } = require("mysql2");
 
 //LISTE DES COMMANDES A ECRIRE SUR DISCORD
 const prefixTell = "!tell";
@@ -9,8 +9,8 @@ const prefixStop = "!stop";
 const prefixHelp = "!help";
 const prefixAudio = "!audio";
 
-const idChannelDiscord = "0003424000023312123"; //Remplacez par l'id de votre channel Discord
-const TOKEN = "QZOIJSQ8fd394jdsdSE934.3424DSoze.324dsEROP.23REkdf"; //Remplacez par le Token de votre bot discord
+const idChannelDiscord = process.env.ID_CHANNEL_DISCORD;
+const TOKEN = process.env.DISCORD_TOKEN;
 
 //L'id discord et le token sont de fausses valeurs, ça ne fonctionnera pas en l'état
 
@@ -37,18 +37,21 @@ const client = new Client({
  * database: Nom de la base de donnée
  * charset: Encodage, à ne pas modifier
  */
+
 let con = createConnection({
-  host: "localhost", //A remplacer par le votre
-  port: "3306",
-  user: "root", //A remplacer par le votre
-  password: "", //A remplacer par le votre
-  database: "livechat_test", //A remplacer par le votre
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   charset: "utf8mb4",
+  insecureAuth: true,
 });
 
 
 con.connect((err) => {
   if (err) {
+    console.error(process.env.DB_HOST, process.env.DB_PORT, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_NAME)
     console.error("Erreur de connexion à la base de donnée:", err);
   } else {
     console.log("Connexion à la base de donnée établie.");

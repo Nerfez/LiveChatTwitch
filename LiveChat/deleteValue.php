@@ -1,5 +1,5 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=livechat_test', "root", ""); //A remplacer par vos valeurs
+$bdd = new PDO('mysql:host=' . getenv("DB_HOST") . ';dbname=' . getenv("DB_NAME") . ';port=' . getenv("DB_PORT"), getenv("DB_USER"), getenv("DB_PASSWORD")); //A remplacer par vos valeurs
 //remplacer localhost par votre ip / nom de serveur
 //livechat_test devrait etre bon si vous avez repris mon dump sql
 //root par votre username bdd

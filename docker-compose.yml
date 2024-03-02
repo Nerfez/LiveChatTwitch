@@ -1,0 +1,49 @@
+services:
+  db:
+    image: mysql:latest
+    environment: # Change the environment variables with your own
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db_data:/var/lib/mysql
+      - ./livechat_test.sql:/docker-entrypoint-initdb.d/livechat_test.sql
+    networks:
+      - backend
+
+  web:
+    build: ./LiveChat
+    environment: # Change the environment variables with your own
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=test
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - backend
+  
+  discord:
+    build: ./Discord
+    environment: # Change the environment variables with your own
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=test
+      - ID_CHANNEL_DISCORD=1234566789 # Replace with your discord channel id
+      - DISCORD_TOKEN=1234567890 # Replace with your discord token
+    depends_on:
+      - db
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
