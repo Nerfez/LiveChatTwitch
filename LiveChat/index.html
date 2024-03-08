@@ -71,7 +71,7 @@
           }
 
           if (messageRecu[5] !== audioSrc.src) {
-            updateAudio(messageRecu[5]);
+            updateAudio(messageRecu);
           }
         };
       }
@@ -157,8 +157,11 @@
         };
       }
 
-      function updateAudio(newAudioSrc) {
-        audioSrc.src = newAudioSrc;
+      function updateAudio(messageRecu) {
+	setTimeout(() => {
+          clearUI();
+        }, messageRecu[0]);
+        audioSrc.src = messageRecu[5];
         audioSrc.volume = 0.1;
         audioParent.load();
         audioParent.play();
