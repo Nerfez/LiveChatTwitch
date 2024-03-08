@@ -42,7 +42,3 @@ CREATE TABLE `data` (
 --
 -- Dumping data for table `data`
 --
-
-INSERT INTO `data` (`url`, `Time`, `Texte`, `Width`, `Height`, `Audio`, `username`, `avatar`) VALUES
-('', '0', '', '1920', '1080', '', '', '');
-COMMIT;
